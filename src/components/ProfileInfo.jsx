@@ -48,7 +48,7 @@ const ProfileInfo = () => {
           gradoDiConnessione: "2°",
           ruolo1: data.title || "Professionista",
           scuolaEducator: "EPICODE",
-          universita: "Università degli Studi di Udine",
+          universita: "Università degli Studi di Roma",
         }
 
         setProfileData(tempUser)

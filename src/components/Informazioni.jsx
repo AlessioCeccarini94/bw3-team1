@@ -72,7 +72,7 @@ const Informazioni = function () {
         <Card.Body>
           <div className="d-flex justify-content-between">
             <h4>Informazioni</h4>
-            <span>
+            <span style={{ cursor: "pointer" }}>
               <BsFillPencilFill />
             </span>
           </div>
@@ -83,7 +83,7 @@ const Informazioni = function () {
                 <BsFillDiamondFill className="me-3" />
                 Competenze principali
               </h6>
-              <BsArrowRight />
+              <BsArrowRight style={{ cursor: "pointer" }} />
             </div>
             <p>
               CSS <BsDot /> HTML <BsDot /> JS
