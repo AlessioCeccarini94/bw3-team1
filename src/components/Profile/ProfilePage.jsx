@@ -7,6 +7,7 @@ import ProfileSkills from "./ProfileSkills"
 import ProfileLanguages from "./ProfileLanguages"
 import Footer from "../Footer"
 import { Row, Col } from "react-bootstrap"
+import Formazione from "../Formazione"
 
 function ProfilePage() {
   return (
@@ -17,6 +18,7 @@ function ProfilePage() {
           <ProfileInfo />
           <Informazioni />
           <Experiences id={"6937db48d322f500151076a1"} />
+          <Formazione/>
           <ProfileVolunteering />
           <ProfileSkills />
           <ProfileLanguages />
