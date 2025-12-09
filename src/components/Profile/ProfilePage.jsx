@@ -8,6 +8,7 @@ import ProfileLanguages from './ProfileLanguages';
 import Footer from '../Footer';
 import { Row, Col } from 'react-bootstrap';
 import Formazione from '../Formazione';
+import Aside from '../Aside';
 
 function ProfilePage() {
   return (
@@ -23,8 +24,8 @@ function ProfilePage() {
           <ProfileSkills />
           <ProfileLanguages />
         </Col>
-        <Col xs={0} lg={4}>
-          ciao
+        <Col xs={0} lg={3}>
+          <Aside />
         </Col>
       </Row>
       <Footer />
