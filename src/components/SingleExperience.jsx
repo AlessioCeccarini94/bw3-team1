@@ -1,0 +1,31 @@
+const SingleExperience = ({ experienceData, itemIndex }) => {
+  console.log("index", itemIndex, "data", experienceData)
+
+  if (!experienceData || experienceData.role === undefined) return null
+  return (
+    <div className="d-flex">
+      <div className="me-3">
+        <div
+          style={{
+            width: "48px",
+            height: "48px",
+            backgroundColor: "#e9ecef",
+            borderRadius: "4px",
+          }}
+        ></div>
+      </div>
+
+      <div>
+        <h6 className="mb-0 fw-semibold">{experienceData.role}</h6>
+        <p className="mb-1">{experienceData.company}</p>
+        <p className="mb-1 text-muted">
+          {" "}
+          From {experienceData.startDate} To {experienceData.endDate}
+        </p>
+        <p className=" mb-0">{experienceData.description}</p>
+      </div>
+    </div>
+  )
+}
+
+export default SingleExperience

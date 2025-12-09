@@ -1,4 +1,4 @@
-import { FETCH_EXPERIENCES, ADD_EXPERIENCES } from "./actions"
+import { FETCH_EXPERIENCES, ADD_EXPERIENCES } from "../actions/actions"
 const initialState = {
   experiences: [],
 }
@@ -7,7 +7,7 @@ const experiencesReducer = (state = initialState, action) => {
     case FETCH_EXPERIENCES:
       return {
         ...state,
-        experiences: action.payload,
+        experiences: [...state.experiences, action.payload],
       }
     case ADD_EXPERIENCES:
       return {

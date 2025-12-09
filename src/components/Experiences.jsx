@@ -1,37 +1,39 @@
 import { useEffect, useState } from "react"
-import { Container, Row, Col, ListGroup, Form, Button, Card } from "react-bootstrap"
+import { Container, Row, Col, Form, Button, Card } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import {
   fetchExperiencesAction,
   addExperienceAction,
-} from "../redux/reducers/actions"
+} from "../redux/actions/actions"
+import SingleExperience from "./SingleExperience"
 
-const Experiences = ({ userId }) => {
+const Experiences = (props) => {
+  console.log(props.id)
+
   const dispatch = useDispatch()
-  const experiences = useSelector((state) => state.experiences.experiences)
   const [role, setRole] = useState("")
   const [company, setCompany] = useState("")
   const [description, setDescription] = useState("")
   const [startDate, setStartDate] = useState("")
   const [endDate, setEndDate] = useState("")
   const [area, setArea] = useState("")
+  const newExperience = {
+    role,
+    company,
+    startDate,
+    endDate,
+    description,
+    area,
+  }
 
   useEffect(() => {
-    if (userId) dispatch(fetchExperiencesAction(userId))
-  }, [dispatch, userId])
+    if (props.id) dispatch(fetchExperiencesAction(props.id))
+  }, [dispatch, props.id])
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!role || !company || !description)
       return alert("Completa tutti i campi")
-    const newExperience = {
-      role,
-      company,
-      startDate,
-      endDate,
-      description,
-      area,
-    }
-    dispatch(addExperienceAction(userId, newExperience))
+    dispatch(addExperienceAction(props.id, newExperience))
     setRole("")
     setCompany("")
     setDescription("")
@@ -39,46 +41,36 @@ const Experiences = ({ userId }) => {
     setEndDate("")
     setArea("")
   }
+  const experiences = useSelector((state) => state.experiences.experiences)
+
   return (
     <Container>
       <Row>
         <Col>
-         <Card className="mb-3 shadow">
-           <Card.Body>
-            <h3 className="mb-3">Esperienze</h3>
-            {experiences.length === 0 && (
-        <div className="d-flex">
-          <div>
-            <h6 className="mb-0">Nessuna Esperienza</h6>
-          </div>
-        </div>
-            )}
-            {experiences.map((exp) => {
-              return (<>
-                   <div className="d-flex">
-                       <div className="me-3">
-                           <div
-                              style={{
-                                width: "48px",
-                                  height: "48px",
-                                   backgroundColor: "#e9ecef",
-                                    borderRadius: "4px",
-                                    }}
-                             ></div>
-                         </div>
+          <Card className="mb-3 shadow">
+            <Card.Body>
+              <h3 className="mb-3">Esperienze</h3>
+              {experiences.length === 0 && (
+                <div className="d-flex">
+                  <div>
+                    <h6 className="mb-0">Nessuna Esperienza</h6>
+                  </div>
+                </div>
+              )}
+              {experiences.map((experience, i) => {
+                console.log("exp", experience, i)
 
-          <div key={exp._id}>
-            <h6 className="mb-0 fw-semibold">{exp.role}</h6>
-            <p className="mb-1">{exp.company}</p>
-            <p className="mb-1 text-muted"> From {exp.startDate} To {exp.endDate}</p>
-            <p className=" mb-0">{exp.description}</p>
-          </div>
-        </div>
-        <hr />
-              </>
-              )
-            })}
-          </Card.Body>
+                return (
+                  <div key={experience._id}>
+                    <SingleExperience
+                      experienceData={experience}
+                      itemIndex={i}
+                    />
+                    <hr />
+                  </div>
+                )
+              })}
+            </Card.Body>
           </Card>
         </Col>
         <Col md={6}>
