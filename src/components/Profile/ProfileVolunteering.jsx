@@ -2,7 +2,7 @@ import { Card } from "react-bootstrap";
 
 function ProfileVolunteering() {
   return (
-    <Card className="mb-3">
+    <Card className="mb-3 shadow">
       <Card.Body>
         <h5 className="mb-3">Volontariato</h5>
 

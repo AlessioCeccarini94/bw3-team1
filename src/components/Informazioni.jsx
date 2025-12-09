@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Container, Row, Col, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Spinner, Card } from 'react-bootstrap';
 import { BsFillPencilFill } from 'react-icons/bs';
 import { BsDot } from 'react-icons/bs';
 import { BsFillDiamondFill } from 'react-icons/bs';
@@ -67,7 +67,8 @@ const Informazioni = function () {
 
   return (
     <>
-      <Container className="border border-1 border-dark rounded p-3">
+      <Card className=" rounded p-3 mb-3 shadow">
+        <Card.Body>
         <div className="d-flex justify-content-between">
           <h4>Informazioni</h4>
           <span>
@@ -75,7 +76,7 @@ const Informazioni = function () {
           </span>
         </div>
         <p>{profileData.bio}</p>
-        <div className="border border-1 border-dark rounded p-3">
+        <div className=" rounded p-3 shadow">
           <div className="d-flex justify-content-between align-items-center">
             <h6>
               <BsFillDiamondFill className="me-3" />
@@ -87,7 +88,8 @@ const Informazioni = function () {
             CSS <BsDot /> HTML <BsDot /> JS
           </p>
         </div>
-      </Container>
+         </Card.Body>
+      </Card>
     </>
   );
 };
