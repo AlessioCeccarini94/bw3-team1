@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Container, Row, Col, ListGroup, Form, Button } from "react-bootstrap"
+import { Container, Row, Col, ListGroup, Form, Button, Card } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import {
   fetchExperiencesAction,
@@ -43,24 +43,43 @@ const Experiences = ({ userId }) => {
     <Container>
       <Row>
         <Col>
-          <ListGroup>
-            <h3>Esperienze</h3>
+         <Card className="mb-3 shadow">
+           <Card.Body>
+            <h3 className="mb-3">Esperienze</h3>
             {experiences.length === 0 && (
-              <p>Non hai ancora aggiunto esperienze</p>
+        <div className="d-flex">
+          <div>
+            <h6 className="mb-0">Nessuna Esperienza</h6>
+          </div>
+        </div>
             )}
             {experiences.map((exp) => {
-              return (
-                <ListGroup.Item key={exp._id}>
-                  <h3>
-                    {exp.startDate} - {exp.endDate}
-                  </h3>
-                  <h4>{exp.role}</h4>
-                  <p>{exp.company}</p>
-                  <p>{exp.description}</p>
-                </ListGroup.Item>
+              return (<>
+                   <div className="d-flex">
+                       <div className="me-3">
+                           <div
+                              style={{
+                                width: "48px",
+                                  height: "48px",
+                                   backgroundColor: "#e9ecef",
+                                    borderRadius: "4px",
+                                    }}
+                             ></div>
+                         </div>
+
+          <div key={exp._id}>
+            <h6 className="mb-0 fw-semibold">{exp.role}</h6>
+            <p className="mb-1">{exp.company}</p>
+            <p className="mb-1 text-muted"> From {exp.startDate} To {exp.endDate}</p>
+            <p className=" mb-0">{exp.description}</p>
+          </div>
+        </div>
+        <hr />
+              </>
               )
             })}
-          </ListGroup>
+          </Card.Body>
+          </Card>
         </Col>
         <Col md={6}>
           <h3>Aggiungi esperienza</h3>
