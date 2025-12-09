@@ -81,7 +81,7 @@ const ProfileInfo = () => {
 
   // Render del componente
   return (
-    <Card className="shadow-sm border-0 mx-auto" style={{ maxWidth: '800px' }}>
+    <Card className="shadow-sm border-0 mx-auto mt-3 mb-3" >
       
       {/* Immagine di Copertina (Fittizia) */}
       <div className="bg-dark" style={{ height: '200px', borderRadius: '8px 8px 0 0', overflow: 'hidden' }}>
