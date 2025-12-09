@@ -1,12 +1,13 @@
-import NavBar from "../NavBar"
-import ProfileInfo from "../ProfileInfo"
-import Informazioni from "../Informazioni"
-import Experiences from "../Experiences"
-import ProfileVolunteering from "./ProfileVolunteering"
-import ProfileSkills from "./ProfileSkills"
-import ProfileLanguages from "./ProfileLanguages"
-import Footer from "../Footer"
-import { Row, Col } from "react-bootstrap"
+import NavBar from '../NavBar';
+import ProfileInfo from '../ProfileInfo';
+import Informazioni from '../Informazioni';
+import Experiences from '../Experiences';
+import ProfileVolunteering from './ProfileVolunteering';
+import ProfileSkills from './ProfileSkills';
+import ProfileLanguages from './ProfileLanguages';
+import Footer from '../Footer';
+import { Row, Col } from 'react-bootstrap';
+import Formazione from '../Formazione';
 
 function ProfilePage() {
   return (
@@ -16,7 +17,8 @@ function ProfilePage() {
         <Col xs={12} lg={8} className="justify-content-center ms-5">
           <ProfileInfo />
           <Informazioni />
-          <Experiences id={"6937db48d322f500151076a1"} />
+          <Experiences id={'6937db48d322f500151076a1'} />
+          <Formazione />
           <ProfileVolunteering />
           <ProfileSkills />
           <ProfileLanguages />
@@ -27,7 +29,7 @@ function ProfilePage() {
       </Row>
       <Footer />
     </>
-  )
+  );
 }
 
-export default ProfilePage
+export default ProfilePage;

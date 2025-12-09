@@ -1,17 +1,33 @@
-import { BsPlusLg } from 'react-icons/bs';
-import { BsFillPencilFill } from 'react-icons/bs';
+import { Card } from 'react-bootstrap';
 
-const Formazione = function () {
+function Formazione() {
   return (
-    <>
-      <div className="justify-content-between align-items-center">
-        <h4>Formazione</h4>
-        <span>
-          <BsPlusLg /> <BsFillPencilFill />
-        </span>
-      </div>
-    </>
+    <Card className="mb-3 shadow">
+      <Card.Body>
+        <h5 className="mb-3">Formazione</h5>
+
+        <div className="d-flex">
+          <div className="me-3">
+            <div
+              style={{
+                width: '48px',
+                height: '48px',
+                backgroundColor: '#e9ecef',
+                borderRadius: '4px',
+              }}
+            ></div>
+          </div>
+
+          <div>
+            <h6 className="mb-0">Università degli studi di Roma</h6>
+            <p className="mb-1">Laurea magistrale in Informatica</p>
+            <p className="mb-1 text-muted">2019 – 2024</p>
+            <p className="mb-0">Votazione: 110/110</p>
+          </div>
+        </div>
+      </Card.Body>
+    </Card>
   );
-};
+}
 
 export default Formazione;
