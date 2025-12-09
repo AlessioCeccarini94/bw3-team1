@@ -1,4 +1,5 @@
 export const FETCH_EXPERIENCES = "FETCH_EXPERIENCES"
+export const ADD_EXPERIENCES = "ADD_EXPERIENCES"
 
 export const fetchExperiencesAction = (userId) => {
   // eslint-disable-next-line no-unused-vars
@@ -39,7 +40,10 @@ export const addExperienceAction = (userId, experience) => {
     })
       .then((response) => response.json())
       .then(() => {
-        dispatch(fetchExperiencesAction(userId))
+        dispatch({
+          type: ADD_EXPERIENCES,
+          payload: experience,
+        })
       })
       .catch((error) => console.log(error))
   }
