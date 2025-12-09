@@ -1,24 +1,25 @@
 import NavBar from "../src/components/NavBar"
-import {  Routes, Route, BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from '../src/redux/store';
-import { 
-  Home, 
-  Network, 
-  Jobs, 
-  Messaging, 
-  Notifications, 
-  Profile, 
-  Settings 
-} from '../src/pages';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Routes, Route, BrowserRouter } from "react-router-dom"
+import { Provider } from "react-redux"
+import store from "../src/redux/store"
+import {
+  Home,
+  Network,
+  Jobs,
+  Messaging,
+  Notifications,
+  Profile,
+  Settings,
+} from "../src/pages"
+import "bootstrap/dist/css/bootstrap.min.css"
 import ProfilePage from "./components/Profile/ProfilePage"
 
 function App() {
-  return <>
-  {/* <NavBar/> */}
-  <Provider store={store}>
-  <BrowserRouter>
+  return (
+    <>
+      {/* <NavBar/> */}
+      <Provider store={store}>
+        <BrowserRouter>
           <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -29,11 +30,10 @@ function App() {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/settings" element={<Settings />} />
           </Routes>
-      
-  </BrowserRouter>
-       </Provider>
-
-  </>
+        </BrowserRouter>
+      </Provider>
+    </>
+  )
 }
 
 export default App

@@ -4,28 +4,30 @@ import Informazioni from "../Informazioni"
 import Experiences from "../Experiences"
 import ProfileVolunteering from "./ProfileVolunteering"
 import ProfileSkills from "./ProfileSkills"
+import ProfileLanguages from "./ProfileLanguages"
 import Footer from "../Footer"
-import { Row,Col } from "react-bootstrap"
+import { Row, Col } from "react-bootstrap"
 
 function ProfilePage() {
-  return <>
-  {/* <NavBar/> */}
-  <Row>
-    <Col xs={12} lg={8} className="justify-content-center ms-5"> 
-    <ProfileInfo/>
-  <Informazioni/>
-  <Experiences id={"5d84937322b7b54d848eb41b"}/>
-  <ProfileVolunteering/>
-  <ProfileSkills/>
- 
-    </Col>
-    <Col xs={0} lg={4}>
-    ciao
-    </Col>
-  </Row>
-  <Footer/>
-
-  </>
+  return (
+    <>
+      {/* <NavBar/> */}
+      <Row>
+        <Col xs={12} lg={8} className="justify-content-center ms-5">
+          <ProfileInfo />
+          <Informazioni />
+          <Experiences id={"6937db48d322f500151076a1"} />
+          <ProfileVolunteering />
+          <ProfileSkills />
+          <ProfileLanguages />
+        </Col>
+        <Col xs={0} lg={4}>
+          ciao
+        </Col>
+      </Row>
+      <Footer />
+    </>
+  )
 }
 
 export default ProfilePage
