@@ -1,6 +1,7 @@
 export const FETCH_EXPERIENCES = "FETCH_EXPERIENCES"
 export const ADD_EXPERIENCES = "ADD_EXPERIENCES"
 export const DELETE_EXPERIENCES = "DELETE_EXPERIENCES"
+export const FETCH_JOBS = "FETCH_JOBS"
 
 export const fetchExperiencesAction = (userId) => {
   const URL = `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`
@@ -68,6 +69,22 @@ export const deleteExperienceAction = (userId, experienceId) => {
           payload: experienceId,
         })
         console.log("deleted")
+      })
+      .catch((error) => console.log(error))
+  }
+}
+
+export const fetchJobsAction = () => {
+  const URL = "https://striveschool-api.herokuapp.com/api/jobs"
+  // eslint-disable-next-line no-unused-vars
+  return (dispatch, getState) => {
+    fetch(URL)
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch({
+          type: FETCH_JOBS,
+          payload: data,
+        })
       })
       .catch((error) => console.log(error))
   }
