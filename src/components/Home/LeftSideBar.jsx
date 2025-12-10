@@ -1,5 +1,5 @@
 import React from "react"
-import { Card, Button, Row, Col } from "react-bootstrap"
+import { Card, Button, Collapse } from "react-bootstrap"
 // Ho usato react-icons/bs come nelle tue componenti precedenti
 import {
   BsBookmarkFill,
@@ -7,10 +7,17 @@ import {
   BsNewspaper,
   BsCalendarEvent,
   BsPersonCircle,
+  BsChevronDown, 
+  BsChevronUp,
 } from "react-icons/bs"
 import { GiTakeMyMoney } from "react-icons/gi"
+import { useState } from "react"
 
 const LeftSidebar = () => {
+    const [isOpen, setIsOpen] = useState(false);
+
+  // Funzione per invertire lo stato
+  const toggleCollapse = () => setIsOpen(!isOpen);
   return (
     <div
       className="sticky-top "
@@ -88,65 +95,91 @@ const LeftSidebar = () => {
           </div>
         </Card.Body>
       </Card>
-      {/* 2. Card Collegamenti (Espandi la tua rete) */}
-      <Card className="mb-2 shadow-sm w-100 d-none d-lg-block">
-        <Card.Body className="p-3">
-          <div className="d-flex justify-content-between">
-            <div>
-              <span className="d-block fw-bold small">Collegamenti</span>
-              <span className="d-block text-secondary ">
-                Espandi la tua rete
+    {/* 2. Bottone per attivare il collasso (VISIBILE SOLO SU SCHERMI SMALL) */}
+      <Button
+        onClick={toggleCollapse}
+        aria-controls="extra-cards-collapse"
+        aria-expanded={isOpen}
+        variant="link"
+        className="w-100 text-center text-decoration-none d-lg-none p-2 shadow-sm border-0 text-secondary"
+        style={{  backgroundColor: 'white' }}
+      >
+        {isOpen ? (
+          <>
+            Mostra meno <BsChevronUp className="ms-1" size={12} />
+          </>
+        ) : (
+          <>
+            Mostra tutto <BsChevronDown className="ms-1" size={12} />
+          </>
+        )}
+      </Button>
+
+      {/* 3. Collapse Componente: Avvolge le card da nascondere */}
+      {/* La classe d-lg-block assicura che il contenuto sia sempre visibile su schermi grandi */}
+      <Collapse in={isOpen} className="d-lg-block" id="extra-cards-collapse">
+        <div>
+          {/* 4. Card Collegamenti (Espandi la tua rete) */}
+          <Card className="mb-2 shadow-sm w-100">
+            <Card.Body className="p-3">
+              <div className="d-flex justify-content-between">
+                <div>
+                  <span className="d-block fw-bold small">Collegamenti</span>
+                  <span className="d-block text-secondary ">
+                    Espandi la tua rete
+                  </span>
+                </div>
+                <span className="fw-bold text-primary">3</span>
+              </div>
+            </Card.Body>
+          </Card>
+          {/* 5. Card Premium */}
+          <Card className="mb-2 shadow-sm w-100">
+            <Card.Body className="p-3">
+              <span className="d-block text-secondary small">
+                Una rete più smart con Premium
               </span>
-            </div>
-            <span className="fw-bold text-primary">3</span>
-          </div>
-        </Card.Body>
-      </Card>
-      {/* 3. Card Premium */}
-      <Card className="mb-2 shadow-sm w-100 d-none d-lg-block">
-        <Card.Body className="p-3">
-          <span className="d-block text-secondary small">
-            Una rete più smart con Premium
-          </span>
-          <p className="fw-bold mb-0 mt-1">
-            <span role="img" aria-label="premium" className="me-2">
-              <span style={{ fontSize: "1.2rem" }}>
-                <GiTakeMyMoney />
-              </span>
-            </span>
-            Prova per 0 EUR
-          </p>
-        </Card.Body>
-      </Card>
-      {/* 4. Menu Navigazione Inferiore */}
-      <Card className="mb-3 shadow-sm w-100 d-none d-lg-block">
-        <Card.Body className="p-3">
-          <div className="d-flex align-items-center mb-2">
-            <BsBookmarkFill className="me-2 text-secondary" />
-            <span className="fw-bold small" style={{ cursor: "pointer" }}>
-              Elementi salvati
-            </span>
-          </div>
-          <div className="d-flex align-items-center mb-2">
-            <BsPeopleFill className="me-2 text-secondary" />
-            <span className="fw-bold small" style={{ cursor: "pointer" }}>
-              Gruppi
-            </span>
-          </div>
-          <div className="d-flex align-items-center mb-2">
-            <BsNewspaper className="me-2 text-secondary" />
-            <span className="fw-bold small" style={{ cursor: "pointer" }}>
-              Newsletter
-            </span>
-          </div>
-          <div className="d-flex align-items-center">
-            <BsCalendarEvent className="me-2 text-secondary" />
-            <span className="fw-bold small" style={{ cursor: "pointer" }}>
-              Eventi
-            </span>
-          </div>
-        </Card.Body>
-      </Card>
+              <p className="fw-bold mb-0 mt-1">
+                <span role="img" aria-label="premium" className="me-2">
+                  <span style={{ fontSize: "1.2rem" }}>
+                    <GiTakeMyMoney />
+                  </span>
+                </span>
+                Prova per 0 EUR
+              </p>
+            </Card.Body>
+          </Card>
+          {/* 6. Menu Navigazione Inferiore */}
+          <Card className="mb-3 shadow-sm w-100">
+            <Card.Body className="p-3">
+              <div className="d-flex align-items-center mb-2">
+                <BsBookmarkFill className="me-2 text-secondary" />
+                <span className="fw-bold small" style={{ cursor: "pointer" }}>
+                  Elementi salvati
+                </span>
+              </div>
+              <div className="d-flex align-items-center mb-2">
+                <BsPeopleFill className="me-2 text-secondary" />
+                <span className="fw-bold small" style={{ cursor: "pointer" }}>
+                  Gruppi
+                </span>
+              </div>
+              <div className="d-flex align-items-center mb-2">
+                <BsNewspaper className="me-2 text-secondary" />
+                <span className="fw-bold small" style={{ cursor: "pointer" }}>
+                  Newsletter
+                </span>
+              </div>
+              <div className="d-flex align-items-center">
+                <BsCalendarEvent className="me-2 text-secondary" />
+                <span className="fw-bold small" style={{ cursor: "pointer" }}>
+                  Eventi
+                </span>
+              </div>
+            </Card.Body>
+          </Card>
+        </div>
+      </Collapse>
     </div>
   )
 }
