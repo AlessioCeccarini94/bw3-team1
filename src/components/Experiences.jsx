@@ -63,6 +63,7 @@ const Experiences = (props) => {
                     <SingleExperience
                       experienceData={experience}
                       itemIndex={i}
+                      userId={props.id}
                     />
                     <hr />
                   </div>

@@ -61,7 +61,6 @@ export const deleteExperienceAction = (userId, experienceId) => {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((response) => response.json())
       .then(() => {
         dispatch({
           type: DELETE_EXPERIENCES,
