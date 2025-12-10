@@ -3,20 +3,23 @@ import LeftSidebar from "./LeftSideBar"
 import RightSidebar from "./RightSidebar"
 import CreaPost from "./CreaPost"
 import PersoneConsigliate from "./PersoneConsigliate"
+import HomePost from "./HomePost"
 
 function HomePage() {
   return (
     <Container fluid>
       <Row className="justify-content-center">
         {/* Sidebar Sinistra */}
-        <Col lg={2} >
+        <Col lg={2} className="p-0" >
           <LeftSidebar />
         </Col>
 
-        <Col xs={12} lg={6} >
+        <Col xs={12} lg={6} className="p-0" >
           {/* Parte centrale dove andranno i post */}
-         <CreaPost/>
+         <CreaPost/> 
          <PersoneConsigliate/>
+         <HomePost/>
+        
         </Col>
 
         {/* Sidebar Destra - Notizie */}

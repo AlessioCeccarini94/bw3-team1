@@ -23,6 +23,7 @@ const CreaPost = ({ currentUser }) => {
   };
 
   return (
+    <div className="col-12 col-lg-10 mx-auto">
     <Card className="mb-3 shadow-sm mt-3">
       <Card.Body className="p-3">
         
@@ -80,6 +81,7 @@ const CreaPost = ({ currentUser }) => {
         </div>
       </Card.Body>
     </Card>
+    </div>
   );
 };
 
