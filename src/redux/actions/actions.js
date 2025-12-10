@@ -75,10 +75,17 @@ export const deleteExperienceAction = (userId, experienceId) => {
 }
 
 export const fetchJobsAction = () => {
-  const URL = "https://striveschool-api.herokuapp.com/api/jobs"
+  const URL = "https://strive-benchmark.herokuapp.com/api/jobs"
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY"
+
   // eslint-disable-next-line no-unused-vars
   return (dispatch, getState) => {
-    fetch(URL)
+    fetch(URL, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         dispatch({

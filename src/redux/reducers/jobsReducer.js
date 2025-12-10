@@ -4,7 +4,7 @@ const initialState = {
   jobs: [],
 }
 
-export const jobsReducer = (state = initialState, action) => {
+const jobsReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_JOBS:
       return {
@@ -15,3 +15,5 @@ export const jobsReducer = (state = initialState, action) => {
       return state
   }
 }
+
+export default jobsReducer

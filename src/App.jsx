@@ -6,7 +6,6 @@ import store from "../src/redux/store"
 import {
   Home,
   Network,
-  Jobs,
   Messaging,
   Notifications,
   Profile,
@@ -16,6 +15,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import ProfilePage from "./components/Profile/ProfilePage"
 import HomePage from "./components/Home/HomePage"
 import AddExperiences from "./components/AddExperieces"
+import Jobs from "./components/Jobs"
 
 function App() {
   return (
