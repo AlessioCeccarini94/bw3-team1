@@ -184,7 +184,7 @@ const LeftSidebar = () => {
           </Card>
         </div>
       </Collapse>
-    </div>
+   </div>
   )
 }
 

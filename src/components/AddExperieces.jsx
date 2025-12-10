@@ -5,6 +5,7 @@ import {
   fetchExperiencesAction,
   addExperienceAction,
 } from "../redux/actions/actions"
+import Footer from "./Footer"
 
 const AddExperiences = ({ userId }) => {
   const [role, setRole] = useState("")
@@ -46,7 +47,7 @@ const AddExperiences = ({ userId }) => {
   return (
     <Row className="justify-content-center">
       <Col md={6}>
-        <h3>Aggiungi esperienza</h3>
+        <h3 className="mt-3">Aggiungi esperienza</h3>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-2">
             <Form.Label>Ruolo</Form.Label>
@@ -64,6 +65,14 @@ const AddExperiences = ({ userId }) => {
               value={company}
               onChange={(e) => setCompany(e.target.value)}
               required
+            />
+          </Form.Group>
+          <Form.Group className="mb-2">
+            <Form.Label>Area</Form.Label>
+            <Form.Control
+              type="text"
+              value={area}
+              onChange={(e) => setArea(e.target.value)}
             />
           </Form.Group>
           <Form.Group className="mb-2">
@@ -91,19 +100,13 @@ const AddExperiences = ({ userId }) => {
               onChange={(e) => setEndDate(e.target.value)}
             />
           </Form.Group>
-          <Form.Group className="mb-2">
-            <Form.Label>Area</Form.Label>
-            <Form.Control
-              type="text"
-              value={area}
-              onChange={(e) => setArea(e.target.value)}
-            />
-          </Form.Group>
           <Button type="submit" className="mt-2">
             Aggiungi esperienza
           </Button>
         </Form>
       </Col>
+      <div className="p-5"></div>
+      <Footer/>
     </Row>
   )
 }
