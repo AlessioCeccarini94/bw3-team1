@@ -6,7 +6,6 @@ import SingleExperience from "./SingleExperience"
 
 const Experiences = (props) => {
   console.log(props.id)
-
   const dispatch = useDispatch()
 
   useEffect(() => {
