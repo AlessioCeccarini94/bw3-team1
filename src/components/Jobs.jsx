@@ -6,15 +6,18 @@ import SingleJob from "./SingleJob"
 
 const Jobs = () => {
   const dispatch = useDispatch()
+  const jobs = useSelector((state) => state.jobs)
   useEffect(() => {
     dispatch(fetchJobsAction())
-  }, [dispatch])
-  const jobs = useSelector((state) => state.jobs)
+  }, [dispatch, jobs])
+  console.log("jobs", jobs)
 
   return (
     <Container>
       <Row>
-        <SingleJob jobData={jobs} />
+        {jobs.jobs.map((job) => {
+          return <SingleJob key={job._id} jobData={job} />
+        })}
       </Row>
     </Container>
   )
