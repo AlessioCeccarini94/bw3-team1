@@ -13,6 +13,8 @@ import {
 import { GiTakeMyMoney } from "react-icons/gi"
 import { useState } from "react"
 
+import { Link } from "react-router-dom"
+
 const LeftSidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -85,6 +87,8 @@ const LeftSidebar = () => {
 
           <div className="pb-4 px-3 pt-1">
             <Button
+              as={Link}
+              to="/add-experiences"
               variant="outline-secondary"
               className="w-100 py-1 fw-bold d-flex justify-content-start align-items-center"
               style={{ border: "2px dashed #D6D6D6" }} // Bordo più fedele

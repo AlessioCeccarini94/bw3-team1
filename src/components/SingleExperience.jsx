@@ -1,5 +1,9 @@
-const SingleExperience = ({ experienceData, itemIndex }) => {
-  console.log("index", itemIndex, "data", experienceData)
+import { useDispatch } from "react-redux"
+import { Button } from "react-bootstrap"
+import { deleteExperienceAction } from "../redux/actions/actions"
+
+const SingleExperience = ({ experienceData, userId }) => {
+  const dispatch = useDispatch()
 
   if (!experienceData || experienceData.role === undefined) return null
   return (
@@ -24,6 +28,14 @@ const SingleExperience = ({ experienceData, itemIndex }) => {
         </p>
         <p className=" mb-0">{experienceData.description}</p>
       </div>
+      <Button
+        onClick={() =>
+          dispatch(deleteExperienceAction(userId, experienceData._id))
+        }
+        className="ms-auto"
+      >
+        Delete
+      </Button>
     </div>
   )
 }

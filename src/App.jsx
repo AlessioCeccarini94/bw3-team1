@@ -1,4 +1,4 @@
-import './App.css'
+import "./App.css"
 import NavBar from "../src/components/NavBar"
 import { Routes, Route, BrowserRouter } from "react-router-dom"
 import { Provider } from "react-redux"
@@ -15,6 +15,7 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css"
 import ProfilePage from "./components/Profile/ProfilePage"
 import HomePage from "./components/Home/HomePage"
+import AddExperiences from "./components/AddExperieces"
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/add-experiences" element={<AddExperiences />} />
           </Routes>
         </BrowserRouter>
       </Provider>
