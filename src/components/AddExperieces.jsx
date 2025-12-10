@@ -7,6 +7,10 @@ import {
 } from "../redux/actions/actions"
 
 const AddExperiences = ({ userId }) => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchExperiencesAction(userId))
+  }, [dispatch, userId])
   const [role, setRole] = useState("")
   const [company, setCompany] = useState("")
   const [description, setDescription] = useState("")
@@ -14,25 +18,19 @@ const AddExperiences = ({ userId }) => {
   const [endDate, setEndDate] = useState("")
   const [area, setArea] = useState("")
 
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(fetchExperiencesAction(userId))
-  }, [dispatch, userId])
-
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!role || !company || !description)
       return alert("Completa tutti i campi")
     dispatch(
-      addExperienceAction(
-        userId,
+      addExperienceAction(userId, {
         role,
         company,
         startDate,
         endDate,
         description,
-        area
-      )
+        area,
+      })
     )
     dispatch(fetchExperiencesAction(userId))
     setRole("")

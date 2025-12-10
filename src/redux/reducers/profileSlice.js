@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
 const API_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZWQ2NWQzMjJmNTAwMTUxMDc2YmUiLCJpYXQiOjE3NjUyNzI5MzMsImV4cCI6MTc2NjQ4MjUzM30.W9kBVgNP5OrdPm8qu6a_oEkJPfFmUA_KlW_XzwcHb3Y"
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY"
 const API_URL = "https://striveschool-api.herokuapp.com/api/profile"
 
 // Thunk per il fetch del profilo dall'API
