@@ -7,12 +7,12 @@ const experiencesReducer = (state = initialState, action) => {
     case FETCH_EXPERIENCES:
       return {
         ...state,
-        experiences: [...state.experiences, action.payload],
+        experiences: action.payload,
       }
     case ADD_EXPERIENCES:
       return {
         ...state,
-        experiences: [...state.experiences, action.payload],
+        experiences: action.payload,
       }
     default:
       return state
