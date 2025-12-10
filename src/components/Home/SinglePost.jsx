@@ -80,36 +80,6 @@ function SinglePost(props) {
           </Row>
 
           <hr className="my-0" />
-
-          {/* Pulsanti di Interazione (Consiglia, Commenta, Diffondi, Invia) */}
-          <Row className="justify-content-around py-1">
-            <Col className="text-center p-0">
-              <Button
-                variant="light" // Usa variant="light" o non specificarlo per un background quasi invisibile
-                className="text-muted d-flex align-items-center justify-content-center w-100 border-0"
-                style={{ padding: "8px 4px" }}
-              >
-                <span className="me-2 fs-5">
-                  <i className="bbi bi-heart"></i>
-                </span>
-                <span className="fw-bold small">Mi piace</span>
-              </Button>
-            </Col>
-
-            <Col className="text-center p-0">
-              <Button
-                variant="light"
-                className="text-muted d-flex align-items-center justify-content-center w-100 border-0"
-                style={{ padding: "8px 4px" }}
-              >
-                <span className="me-2 fs-5">
-                  {" "}
-                  <i className="bi bi-chat"></i>{" "}
-                </span>
-                <span className="fw-bold small">Commenta</span>
-              </Button>
-            </Col>
-          </Row>
           {/* Pulsanti di Interazione (Consiglia, Commenta, Diffondi, Invia) */}
           <Row className="justify-content-around py-1">
             <Col className="text-center p-0">

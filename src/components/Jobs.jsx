@@ -15,9 +15,10 @@ const Jobs = () => {
 
   return (
     <Container>
-      <Row>
+      <Row className="mt-4">
+        <h3 className="mb-4">Le principali offerte di lavoro per te</h3>
        { jobsArray && Array.isArray(jobsArray) && jobsArray.length > 0 ? (
-          jobsArray.slice(0,10).map((job) => {
+          jobsArray.slice(0,9).map((job) => {
             // L'array è disponibile, esegui il map
             return <SingleJob key={job._id} jobData={job} />
           })
