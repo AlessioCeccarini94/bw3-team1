@@ -10,6 +10,8 @@ import {
 } from "react-icons/bs"
 import { GiTakeMyMoney } from "react-icons/gi"
 
+import { Link } from "react-router-dom"
+
 const LeftSidebar = () => {
   return (
     <div
@@ -78,6 +80,8 @@ const LeftSidebar = () => {
 
           <div className="p-3">
             <Button
+              as={Link}
+              to="/add-experiences"
               variant="outline-secondary"
               className="w-100 py-2 fw-bold d-flex justify-content-center align-items-center"
               style={{ border: "2px dashed #D6D6D6" }} // Bordo più fedele
