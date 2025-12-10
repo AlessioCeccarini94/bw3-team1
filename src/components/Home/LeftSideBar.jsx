@@ -97,19 +97,19 @@ const LeftSidebar = () => {
         <Card.Body className="p-3">
           <div className="d-flex align-items-center mb-2">
             <BsBookmarkFill className="me-2 text-secondary" />
-            <span className="fw-bold small">Elementi salvati</span>
+            <span className="fw-bold small" style={{cursor:"pointer"}}>Elementi salvati</span>
           </div>
           <div className="d-flex align-items-center mb-2">
             <BsPeopleFill className="me-2 text-secondary" />
-            <span className="fw-bold small">Gruppi</span>
+            <span className="fw-bold small" style={{cursor:"pointer"}}>Gruppi</span>
           </div>
           <div className="d-flex align-items-center mb-2">
             <BsNewspaper className="me-2 text-secondary" />
-            <span className="fw-bold small">Newsletter</span>
+            <span className="fw-bold small" style={{cursor:"pointer"}}>Newsletter</span>
           </div>
           <div className="d-flex align-items-center">
             <BsCalendarEvent className="me-2 text-secondary" />
-            <span className="fw-bold small">Eventi</span>
+            <span className="fw-bold small" style={{cursor:"pointer"}}>Eventi</span>
           </div>
         </Card.Body>
       </Card>
