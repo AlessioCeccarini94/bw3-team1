@@ -298,7 +298,7 @@ const NavBar = () => {
       </Navbar>
 
       {/* Mobile Navbar */}
-      <div className="d-lg-none bg-white border-bottom shadow-sm sticky-top py-2">
+      <div className="d-lg-none bg-white border-bottom shadow-sm sticky-top py-2"  style={{ zIndex: 1040 }}>
         <Container fluid className="px-2">
           <div className="d-flex align-items-center gap-2">
             <Link to="/" className="text-decoration-none">

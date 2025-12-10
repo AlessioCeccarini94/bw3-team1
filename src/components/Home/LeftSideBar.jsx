@@ -13,7 +13,7 @@ import { GiTakeMyMoney } from "react-icons/gi"
 const LeftSidebar = () => {
   return (
     <div
-      className="sticky-top ms-5"
+      className="sticky-top "
       style={{ top: "70px", paddingTop: "1rem" }}
     >
       {" "}
@@ -35,7 +35,7 @@ const LeftSidebar = () => {
           <div className="pt-2">
             {/* Immagine Profilo Placeholder (con allineamento a sinistra) */}
             <div
-              className="position-relative ms-4"
+              className="position-relative ms-3"
               style={{
                 marginTop: "-34px",
                 width: "72px",
@@ -70,16 +70,16 @@ const LeftSidebar = () => {
               </Button>
             </div>
 
-            <div className="mt-4 pt-2 pb-2 px-3 border-bottom">
+            <div className="mt-2 pt-2 pb-1 px-3 ">
               <h5 className="mb-0 fw-bold">Vincenzo Calvaruso</h5>
               <p className="text-muted mb-2">Alcamo, Sicilia</p>
             </div>
           </div>
 
-          <div className="p-3">
+          <div className="pb-4 px-3 pt-1">
             <Button
               variant="outline-secondary"
-              className="w-100 py-2 fw-bold d-flex justify-content-center align-items-center"
+              className="w-100 py-1 fw-bold d-flex justify-content-start align-items-center"
               style={{ border: "2px dashed #D6D6D6" }} // Bordo più fedele
             >
               <span className="me-2">+</span>
@@ -89,7 +89,7 @@ const LeftSidebar = () => {
         </Card.Body>
       </Card>
       {/* 2. Card Collegamenti (Espandi la tua rete) */}
-      <Card className="mb-2 shadow-sm w-100">
+      <Card className="mb-2 shadow-sm w-100 d-none d-lg-block">
         <Card.Body className="p-3">
           <div className="d-flex justify-content-between">
             <div>
@@ -103,7 +103,7 @@ const LeftSidebar = () => {
         </Card.Body>
       </Card>
       {/* 3. Card Premium */}
-      <Card className="mb-2 shadow-sm w-100">
+      <Card className="mb-2 shadow-sm w-100 d-none d-lg-block">
         <Card.Body className="p-3">
           <span className="d-block text-secondary small">
             Una rete più smart con Premium
@@ -119,7 +119,7 @@ const LeftSidebar = () => {
         </Card.Body>
       </Card>
       {/* 4. Menu Navigazione Inferiore */}
-      <Card className="mb-3 shadow-sm w-100">
+      <Card className="mb-3 shadow-sm w-100 d-none d-lg-block">
         <Card.Body className="p-3">
           <div className="d-flex align-items-center mb-2">
             <BsBookmarkFill className="me-2 text-secondary" />
