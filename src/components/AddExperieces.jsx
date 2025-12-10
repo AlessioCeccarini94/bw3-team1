@@ -9,6 +9,8 @@ import {
 const AddExperiences = ({ userId }) => {
   const dispatch = useDispatch()
   useEffect(() => {
+    console.log("userid", userId)
+
     dispatch(fetchExperiencesAction(userId))
   }, [dispatch, userId])
   const [role, setRole] = useState("")

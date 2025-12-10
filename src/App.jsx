@@ -32,7 +32,10 @@ function App() {
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="/add-experiences" element={<AddExperiences />} />
+            <Route
+              path="/add-experiences"
+              element={<AddExperiences userId={"6937db48d322f500151076a1"} />}
+            />
           </Routes>
         </BrowserRouter>
       </Provider>

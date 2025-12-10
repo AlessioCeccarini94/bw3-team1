@@ -27,7 +27,7 @@ const Experiences = (props) => {
                   </div>
                 </div>
               )}
-              {experiences.map((experience, i) => {
+              {(experiences || []).map((experience, i) => {
                 return (
                   <div key={experience._id}>
                     <SingleExperience
