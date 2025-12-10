@@ -79,7 +79,7 @@ function SinglePost(props) {
         <Row className="justify-content-around py-1">
   <Col className="text-center p-0">
     <Button 
-      variant="light" // Usa variant="light" o non specificarlo per un background quasi invisibile
+      variant="light" 
       className="text-muted d-flex align-items-center justify-content-center w-100 border-0"
       style={{ padding: '8px 4px' }}
     >
