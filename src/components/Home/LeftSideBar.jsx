@@ -13,7 +13,7 @@ import { GiTakeMyMoney } from "react-icons/gi"
 const LeftSidebar = () => {
   return (
     <div
-      className="sticky-top me-5"
+      className="sticky-top ms-5"
       style={{ top: "70px", paddingTop: "1rem" }}
     >
       {" "}

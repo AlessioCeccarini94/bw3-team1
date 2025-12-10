@@ -1,5 +1,6 @@
 import { Card } from "react-bootstrap"
-import { BsInfoCircleFill } from "react-icons/bs"
+import { BsInfoCircleFill,BsChevronDown } from "react-icons/bs"
+import { FaLinkedin } from 'react-icons/fa';
 
 const RightSidebar = () => {
   // Dati statici delle notizie
@@ -123,6 +124,48 @@ const RightSidebar = () => {
           </div>
         </Card.Body>
       </Card>
+      <div className="mt-3 text-center">
+      
+      {/* Prima riga di link (Informazioni, Accessibilità) */}
+      <div className="d-flex justify-content-center flex-wrap">
+        <a href="#informazioni" className="text-secondary small me-3 mb-1" style={{textDecoration:"none"}}>Informazioni</a>
+        <a href="#accessibilita" className="text-secondary small me-3 mb-1" style={{textDecoration:"none"}}>Accessibilità</a>
+      </div>
+
+      <div className="d-flex justify-content-center flex-wrap mt-1"> 
+        <a href="#assistenza" className="text-secondary small mb-1" style={{textDecoration:"none"}}>Centro assistenza</a>
+      </div>
+      
+      {/* Seconda riga di link (Privacy, Annunci) */}
+      <div className="d-flex justify-content-center flex-wrap mt-1">
+        <a href="#privacy" className="text-secondary small me-3 mb-1" style={{textDecoration:"none"}}>
+            Privacy e condizioni <BsChevronDown size={10} className="ms-1" /> {/* Usato un'icona placeholder per il dropdown/info */}
+        </a>
+        <a href="#annunci" className="text-secondary small mb-1" style={{textDecoration:"none"}}>Opzioni per gli annunci pubblicitari</a>
+      </div>
+
+      {/* Terza riga di link (Pubblicità, Servizi, App) */}
+      <div className="d-flex justify-content-center flex-wrap mt-1">
+        <a href="#pubblicita" className="text-secondary small me-3 mb-1" style={{textDecoration:"none"}}>Pubblicità</a>
+        <a href="#servizi" className="text-secondary small me-3 mb-1" style={{textDecoration:"none"}}>
+            Servizi alle aziende <BsChevronDown size={10} className="ms-1" />
+        </a>
+        <a href="#app" className="text-secondary small mb-1" style={{textDecoration:"none"}}>Scarica l'app LinkedIn</a>
+        <a href="#altro" className="text-secondary small ms-3 mb-1" style={{textDecoration:"none"}}>Altro</a> 
+      </div>
+      
+      {/* Copyright */}
+      <div className="text-center mt-3 mb-4">
+        <span className="text-muted small">
+          <span className="fw-bold me-1">LinkedIn</span> 
+          <span role="img" aria-label="LinkedIn Logo">
+          <FaLinkedin style={{ color: '#0A66C2' }} size={18} />
+          </span> 
+          LinkedIn Corporation © 2025
+        </span>
+      </div>
+      
+    </div>
     </div>
   )
 }

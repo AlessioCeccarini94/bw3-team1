@@ -42,6 +42,7 @@ const NavBar = () => {
       <Navbar
         bg="white"
         className="border-bottom shadow-sm sticky-top d-none d-lg-block py-2"
+        style={{ zIndex: 1040 }}
       >
         <Container>
           <div
