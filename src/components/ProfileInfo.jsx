@@ -7,6 +7,7 @@ import {
   Button,
   Container,
   Spinner,
+  Form,
 } from "react-bootstrap"
 
 // Chiave API
@@ -19,6 +20,7 @@ const ProfileInfo = () => {
   const [profileData, setProfileData] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [profileImg, setProfileImg] = useState(null)
 
   //  Funzione per la chiamata API
   const fetchProfile = async () => {
@@ -41,16 +43,16 @@ const ProfileInfo = () => {
           profileUrl: data.image,
           email: data.email,
           id: data._id,
+          coverUrl: data.coverImage,
 
           // Dati Fittizi (Mantenuti statici perché non forniti dall'API /me)
-          coverUrl: "https://placebear.com/800x200",
           pronoun: "He/him",
           gradoDiConnessione: "2°",
           ruolo1: data.title || "Professionista",
           scuolaEducator: "EPICODE",
           universita: "Università degli Studi di Roma",
         }
-
+        setProfileImg(tempUser.profileUrl)
         setProfileData(tempUser)
         setError(null)
         console.log("qua", tempUser)
@@ -118,7 +120,7 @@ const ProfileInfo = () => {
       <Card.Body className="pt-0">
         <div className="position-relative">
           <Image
-            src={utente.profileUrl}
+            src={profileImg}
             alt="Immagine del Profilo"
             className="border border-4 border-white rounded-circle position-absolute"
             style={{
@@ -131,9 +133,25 @@ const ProfileInfo = () => {
             }}
           />
         </div>
+        <i class="bi bi-pencil-square">
+          <Form.Control
+            className=" rounded-circle position-absolute"
+            type="file"
+            id="profileImg"
+            accrpt="image/*"
+            onChange={(e) =>
+              setProfileImg(URL.createObjectURL(e.target.files[0]))
+            }
+            style={{
+              zIndex: 11,
+              width: "2%",
+              top: "45%",
+              left: "9%",
+            }}
+          />
+        </i>
 
         <div style={{ height: "60px" }}></div>
-
         {/*  Informazioni Principali */}
         <Container fluid className="px-3">
           <Row className="align-items-start mb-2">
@@ -173,7 +191,6 @@ const ProfileInfo = () => {
           </div>
           <p className="mt-2 mb-3 fw-bold">Più di 500 collegamenti</p>
         </Container>
-
         {/*  Pulsanti di Azione */}
         <div className="p-3">
           <Button variant="primary" className="me-2">
