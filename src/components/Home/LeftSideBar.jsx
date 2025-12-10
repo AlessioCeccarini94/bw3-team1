@@ -18,7 +18,7 @@ const LeftSidebar = () => {
     >
       {" "}
       {/* 1. Card Profilo Utente */}
-      <Card className="mb-2 shadow-sm w-75">
+      <Card className="mb-2 shadow-sm w-100">
         <div
           className="position-relative"
           style={{
@@ -89,7 +89,7 @@ const LeftSidebar = () => {
         </Card.Body>
       </Card>
       {/* 2. Card Collegamenti (Espandi la tua rete) */}
-      <Card className="mb-2 shadow-sm w-75">
+      <Card className="mb-2 shadow-sm w-100">
         <Card.Body className="p-3">
           <div className="d-flex justify-content-between">
             <div>
@@ -103,7 +103,7 @@ const LeftSidebar = () => {
         </Card.Body>
       </Card>
       {/* 3. Card Premium */}
-      <Card className="mb-2 shadow-sm w-75">
+      <Card className="mb-2 shadow-sm w-100">
         <Card.Body className="p-3">
           <span className="d-block text-secondary small">
             Una rete più smart con Premium
@@ -119,7 +119,7 @@ const LeftSidebar = () => {
         </Card.Body>
       </Card>
       {/* 4. Menu Navigazione Inferiore */}
-      <Card className="mb-3 shadow-sm w-75">
+      <Card className="mb-3 shadow-sm w-100">
         <Card.Body className="p-3">
           <div className="d-flex align-items-center mb-2">
             <BsBookmarkFill className="me-2 text-secondary" />
