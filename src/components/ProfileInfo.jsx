@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import {
   Card,
   Image,
@@ -9,7 +9,6 @@ import {
   Spinner,
   Form,
 } from "react-bootstrap"
-
 // Chiave API
 const API_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY"
@@ -22,6 +21,18 @@ const ProfileInfo = () => {
   const [error, setError] = useState(null)
   const [profileImg, setProfileImg] = useState(null)
 
+  const fileInputRef = useRef(null)
+
+  const handleButtonClick = () => {
+    fileInputRef.current.click()
+  }
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    const previewUrl = URL.createObjectURL(file)
+    setProfileImg(previewUrl)
+  }
   //  Funzione per la chiamata API
   const fetchProfile = async () => {
     try {
@@ -132,25 +143,21 @@ const ProfileInfo = () => {
               zIndex: 10,
             }}
           />
-        </div>
-        <i class="bi bi-pencil-square">
-          <Form.Control
-            className=" rounded-circle position-absolute"
-            type="file"
-            id="profileImg"
-            accrpt="image/*"
-            onChange={(e) =>
-              setProfileImg(URL.createObjectURL(e.target.files[0]))
-            }
+          <Button
+            variant="primary"
+            className="rounded-circle d-flex align-items-center justify-content-center position-absolute"
             style={{
+              left: "12%",
               zIndex: 11,
-              width: "2%",
-              top: "45%",
-              left: "9%",
             }}
-          />
-        </i>
-
+            onClick={() => {
+              // Implementa la logica per la modifica dell'immagine
+              console.log("Modifica immagine del profilo")
+            }}
+          >
+            +
+          </Button>
+        </div>
         <div style={{ height: "60px" }}></div>
         {/*  Informazioni Principali */}
         <Container fluid className="px-3">
