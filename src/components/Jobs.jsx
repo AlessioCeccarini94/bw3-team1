@@ -9,15 +9,22 @@ const Jobs = () => {
   const jobs = useSelector((state) => state.jobs)
   useEffect(() => {
     dispatch(fetchJobsAction())
-  }, [dispatch, jobs])
+  }, [dispatch])
   console.log("jobs", jobs)
+  const jobsArray = jobs.jobs.data;
 
   return (
     <Container>
       <Row>
-        {jobs.jobs.map((job) => {
-          return <SingleJob key={job._id} jobData={job} />
-        })}
+       { jobsArray && Array.isArray(jobsArray) && jobsArray.length > 0 ? (
+          jobsArray.slice(0,10).map((job) => {
+            // L'array è disponibile, esegui il map
+            return <SingleJob key={job._id} jobData={job} />
+          })
+        ) : (
+          // Mostra un messaggio di caricamento o di assenza dati
+          <p className="text-center w-100">Caricamento lavori in corso o nessun dato trovato...</p>
+        )}
       </Row>
     </Container>
   )
