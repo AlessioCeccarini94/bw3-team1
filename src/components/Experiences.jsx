@@ -58,8 +58,6 @@ const Experiences = (props) => {
                 </div>
               )}
               {experiences.map((experience, i) => {
-                console.log("exp", experience, i)
-
                 return (
                   <div key={experience._id}>
                     <SingleExperience
