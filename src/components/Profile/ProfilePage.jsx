@@ -15,7 +15,7 @@ function ProfilePage() {
     <>
       {/* <NavBar/> */}
       <Row>
-        <Col xs={12} lg={8} className="justify-content-center ms-5">
+        <Col xs={12} lg={8} className="justify-content-center ms-0 ms-lg-5">
           <ProfileInfo />
           <Informazioni />
           <Experiences id={'6937db48d322f500151076a1'} />
@@ -24,7 +24,7 @@ function ProfilePage() {
           <ProfileSkills />
           <ProfileLanguages />
         </Col>
-        <Col xs={0} lg={3}>
+        <Col lg={3} className="d-none d-lg-block">
           <Aside />
         </Col>
       </Row>

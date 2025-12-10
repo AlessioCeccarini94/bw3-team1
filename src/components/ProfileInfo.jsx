@@ -43,7 +43,7 @@ const ProfileInfo = () => {
           id: data._id,
 
           // Dati Fittizi (Mantenuti statici perché non forniti dall'API /me)
-          coverUrl: "https://via.placeholder.com/800x200?text=Pannelli+Solari",
+          coverUrl: "https://placebear.com/800x200",
           pronoun: "He/him",
           gradoDiConnessione: "2°",
           ruolo1: data.title || "Professionista",
