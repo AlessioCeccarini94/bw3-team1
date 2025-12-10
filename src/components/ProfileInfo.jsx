@@ -23,6 +23,7 @@ const ProfileInfo = () => {
 
   const fileInputRef = useRef(null)
 
+  //inizio replica da copiare
   const handleFileChange = async (e) => {
     const file = e.target.files[0]
     if (!file) return
@@ -63,6 +64,24 @@ const ProfileInfo = () => {
       setIsUploading(false)
     }
   }
+
+  //FINE COPIA +
+  // <input
+  // type="file"
+  // accept="image/*"
+  // ref={fileInputRef}
+  // style={{ display: "none" }}
+  // onChange={handleFileChange}
+  //   />
+
+  // <Button
+  // onClick={() => fileInputRef.current.click()}
+  // disabled={isUploading}
+  // >
+  // {isUploading ? "..." : "+"}
+  // </Button>
+
+  // <img src={profileImg} alt="Immagine" />
 
   //  Funzione per la chiamata API
   const fetchProfile = async () => {
