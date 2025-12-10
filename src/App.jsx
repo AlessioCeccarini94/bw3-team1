@@ -1,3 +1,4 @@
+import './App.css'
 import NavBar from "../src/components/NavBar"
 import { Routes, Route, BrowserRouter } from "react-router-dom"
 import { Provider } from "react-redux"
@@ -13,6 +14,7 @@ import {
 } from "../src/pages"
 import "bootstrap/dist/css/bootstrap.min.css"
 import ProfilePage from "./components/Profile/ProfilePage"
+import HomePage from "./components/Home/HomePage"
 
 function App() {
   return (
@@ -22,7 +24,7 @@ function App() {
         <BrowserRouter>
           <NavBar />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/network" element={<Network />} />
             <Route path="/jobs" element={<Jobs />} />
             <Route path="/messaging" element={<Messaging />} />
