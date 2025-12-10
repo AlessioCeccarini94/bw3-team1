@@ -6,7 +6,7 @@ import { BsFillPersonPlusFill } from 'react-icons/bs';
 function Aside() {
   return (
     <>
-      <Card className="mb-3 shadow">
+      <Card className="mb-3 shadow mt-5">
         <Card.Body>
           <div className="d-flex justify-content-between align-items-baseline">
             <div>
