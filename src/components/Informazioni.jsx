@@ -68,7 +68,7 @@ const Informazioni = function () {
 
   return (
     <>
-      <Card className=" rounded p-3 mb-3 shadow">
+      <Card className=" rounded p-2 mb-3 shadow">
         <Card.Body>
           <div className="d-flex justify-content-between">
             <h4>Informazioni</h4>

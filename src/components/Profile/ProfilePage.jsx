@@ -28,6 +28,7 @@ function ProfilePage() {
           <Aside />
         </Col>
       </Row>
+      <div className='p-3'></div>
       <Footer />
     </>
   );

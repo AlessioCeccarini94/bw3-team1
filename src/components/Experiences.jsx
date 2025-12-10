@@ -14,12 +14,10 @@ const Experiences = (props) => {
   const experiences = useSelector((state) => state.experiences.experiences)
 
   return (
-    <Container>
-      <Row>
-        <Col>
-          <Card className="mb-3 shadow">
+   
+          <Card className="mb-3 p-2 shadow">
             <Card.Body>
-              <h3 className="mb-3">Esperienze</h3>
+              <h4 className="mb-3">Esperienze</h4>
               {experiences.length === 0 && (
                 <div className="d-flex">
                   <div>
@@ -41,9 +39,6 @@ const Experiences = (props) => {
               })}
             </Card.Body>
           </Card>
-        </Col>
-      </Row>
-    </Container>
   )
 }
 
