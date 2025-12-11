@@ -61,14 +61,28 @@ const LeftSidebar = () => {
                 backgroundColor: "#bdbdbd",
               }}
             >
-              {/* Icona/Avatar all'interno del cerchio */}
-              <BsPersonCircle
+               {currentUser?.image ? (
+                    <img
+                      src={currentUser.image}
+                      alt="Profile"
+                      className="rounded-circle border"
+                      style={{
+                        width: "72px",
+                        height: "72px",
+                        objectFit: "cover",
+                      }}
+                    />
+                  ) : (
+                     <BsPersonCircle
                 size={68}
                 color="#757575"
                 className="position-relative"
                 style={{ top: "-1px" }}
               />
 
+                  )}
+              {/* Icona/Avatar all'interno del cerchio */}
+             
               {/* Bottone "+" per aggiungere esperienza - Posizionato in basso a destra dell'avatar */}
               <Button
                 variant="primary"
