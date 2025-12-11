@@ -12,6 +12,7 @@ import {
   Toast,
   Modal,
   Form,
+  Spinner,
 } from "react-bootstrap"
 import { BsPersonCircle } from "react-icons/bs"
 import { useSelector } from "react-redux"
@@ -74,14 +75,14 @@ function SinglePost(props) {
       // FASE 1: Aggiornamento del Testo (se modificato)
       if (editText.trim() !== post.text.trim()) {
         const updatedTextData = { text: editText }
-        await dispatch(updatePostAction(post._id, updatedTextData))
+        await dispatch(modifyPostAction(post._id, updatedTextData))
         // Se l'API restituisce il post aggiornato, potresti usarlo qui
       }
 
       // FASE 2: Upload della Nuova Immagine (se selezionata)
       if (selectedFile) {
         // uploadPostPictureAction si occuperà di creare l'oggetto FormData
-        await dispatch(uploadPostPictureAction(post._id, selectedFile))
+        // await dispatch(uploadPostPictureAction(post._id, selectedFile))
         // L'API di Strive School aggiorna il post e restituisce i dati
       }
 
