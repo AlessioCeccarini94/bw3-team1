@@ -74,7 +74,7 @@ function SinglePost(props) {
     try {
       // FASE 1: Aggiornamento del Testo (se modificato)
       if (editText.trim() !== post.text.trim()) {
-        const updatedTextData = { text: editText }
+        const updatedTextData = editText
         await dispatch(modifyPostAction(post._id, updatedTextData))
         // Se l'API restituisce il post aggiornato, potresti usarlo qui
       }

@@ -179,7 +179,7 @@ export const deletePostAction = (postId) => {
   }
 }
 
-export const modifyPostAction = (postId, text) => {
+export const modifyPostAction = (postId, newText) => {
   const URL = `https://striveschool-api.herokuapp.com/api/posts/${postId}`
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY"
@@ -189,9 +189,10 @@ export const modifyPostAction = (postId, text) => {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        text: text,
+        text: newText,
       }),
     })
       .then((response) => {
