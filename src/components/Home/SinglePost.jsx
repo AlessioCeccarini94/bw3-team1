@@ -5,7 +5,11 @@ import { FaHandsBubbles, FaArrowsRotate } from "react-icons/fa6"
 import { Card, Row, Col, Container, Button, Dropdown } from "react-bootstrap"
 import { BsPersonCircle } from "react-icons/bs"
 import { useSelector } from "react-redux"
-import { deletePostAction, fetchPostAction } from "../../redux/actions/actions"
+import {
+  deletePostAction,
+  fetchPostAction,
+  modifyPostAction,
+} from "../../redux/actions/actions"
 import { useDispatch } from "react-redux"
 
 function SinglePost(props) {
@@ -16,6 +20,8 @@ function SinglePost(props) {
   const handleEdit = () => {
     console.log("Modifica il post:", post._id)
     // Qui andrebbe la logica per aprire un modale o navigare alla pagina di modifica
+    dispatch(modifyPostAction(post._id, post.text))
+    dispatch(fetchPostAction())
   }
 
   const handleDelete = () => {
