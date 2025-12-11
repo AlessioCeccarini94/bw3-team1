@@ -11,7 +11,7 @@ import {
   BsChevronUp,
 } from "react-icons/bs"
 import { GiTakeMyMoney } from "react-icons/gi"
-import { useState,useEffect } from "react"
+import { useState,useEffect, useRef } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { fetchProfile } from "../../redux/reducers/profileSlice"
 
@@ -20,14 +20,77 @@ import { Link } from "react-router-dom"
 const LeftSidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const dispatch = useDispatch()
+    const [profileData, setProfileData] = useState(null)
+    const [profileImg, setProfileImg] = useState(null)
+    const [isUploading, setIsUploading] = useState(false)
+    const fileInputRef = useRef(null)
+
      useEffect(() => {
         dispatch(fetchProfile())
       }, [dispatch])
     const { currentUser } = useSelector((state) => state.profile)
 
+    const API_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY"
+const API_URL = "https://striveschool-api.herokuapp.com/api/profile/me"
+
+    //inizio replica da copiare
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+
+    const previewUrl = URL.createObjectURL(file)
+    setProfileImg(previewUrl)
+    setIsUploading(true)
+
+    // Carica l'immagine sul server
+    try {
+      const formData = new FormData()
+      formData.append("profile", file)
+
+      const response = await fetch(`${API_URL}/picture`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${API_KEY}`,
+        },
+        body: formData,
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        console.log("Immagine caricata con successo:", data)
+        // Aggiorna con l'URL dal server
+        setProfileImg(data.image)
+        // Aggiorna anche i dati del profilo
+        setProfileData((prev) => ({ ...prev, profileUrl: data.image }))
+      } else {
+        throw new Error("Errore nel caricamento dell'immagine")
+      }
+    } catch (error) {
+      console.error("Errore durante il caricamento:", error)
+      alert("Errore nel caricamento dell'immagine. Riprova.")
+      // Ripristina l'immagine precedente in caso di errore
+      setProfileImg(profileData.profileUrl)
+    } finally {
+      setIsUploading(false)
+    }
+  }
+
+
   // Funzione per invertire lo stato
   const toggleCollapse = () => setIsOpen(!isOpen);
   return (
+    <>
+
+     <input
+        type="file"
+        accept="image/*"
+        ref={fileInputRef}
+        style={{ display: "none" }}
+        onChange={handleFileChange}
+      />
+    
+    
     <div
       className="sticky-top "
       style={{ top: "70px", paddingTop: "1rem" }}
@@ -84,20 +147,22 @@ const LeftSidebar = () => {
               {/* Icona/Avatar all'interno del cerchio */}
              
               {/* Bottone "+" per aggiungere esperienza - Posizionato in basso a destra dell'avatar */}
-              <Button
-                variant="primary"
-                className="rounded-circle d-flex align-items-center justify-content-center p-0 position-absolute"
-                // Regolato il posizionamento per stare in basso a destra del cerchio
-                style={{
-                  width: "24px",
+               <Button
+                           variant="primary"
+                           className="rounded-circle d-flex align-items-center justify-content-center position-absolute"
+                           size="sm"
+                           style={{
+                              width: "24px",
                   height: "24px",
                   bottom: "-4px",
                   right: "-4px",
                   zIndex: "10",
-                }}
-              >
-                +
-              </Button>
+                           }}
+                           onClick={() => fileInputRef.current.click()}
+                           disabled={isUploading}
+                         >
+                           {isUploading ? "..." : "+"}
+                         </Button>
             </div>
 
             <div className="mt-2 pt-2 pb-1 px-3 ">
@@ -206,6 +271,7 @@ const LeftSidebar = () => {
         </div>
       </Collapse>
    </div>
+   </>
   )
 }
 
