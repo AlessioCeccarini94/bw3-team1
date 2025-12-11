@@ -20,6 +20,7 @@ import {
   deletePostAction,
   fetchPostAction,
   modifyPostAction,
+  uploadFileAction,
 } from "../../redux/actions/actions"
 import { useDispatch } from "react-redux"
 import { useRef } from "react"
@@ -81,8 +82,12 @@ function SinglePost(props) {
 
       // FASE 2: Upload della Nuova Immagine (se selezionata)
       if (selectedFile) {
+        const formData = new FormData()
+        formData.append("post", selectedFile)
         // uploadPostPictureAction si occuperà di creare l'oggetto FormData
         // await dispatch(uploadPostPictureAction(post._id, selectedFile))
+        dispatch(uploadFileAction(post._id, selectedFile))
+        return
         // L'API di Strive School aggiorna il post e restituisce i dati
       }
 

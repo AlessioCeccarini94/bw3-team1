@@ -213,3 +213,34 @@ export const modifyPostAction = (postId, newText) => {
       })
   }
 }
+export const uploadFileAction = (postId, formData) => {
+  const URL = `https://striveschool-api.herokuapp.com/api/posts/${postId}`
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY"
+  // eslint-disable-next-line no-unused-vars
+  return (dispatch, getState) => {
+    fetch(URL, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        } else {
+          throw new Error("la chiamata non è ok: " + response.status)
+        }
+      })
+      .then((data) => {
+        dispatch({
+          type: MODIFY_POST,
+          payload: data,
+        })
+      })
+      .catch((err) => {
+        console.log("Errore nella chiamata", err)
+      })
+  }
+}
