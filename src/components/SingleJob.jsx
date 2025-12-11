@@ -7,7 +7,7 @@ const SingleJob = ({ jobData }) => {
   return (
     // Colonna per limitare la larghezza della card in una Row di Bootstrap
     <div className="col-12 col-md-6 col-lg-4 mb-4">
-      <Card>
+      <Card className="h-100">
         <Card.Header>
           <div className="d-flex justify-content-between align-items-center">
             <h6 className="mb-0 text-muted">
@@ -26,7 +26,7 @@ const SingleJob = ({ jobData }) => {
 
           {/* Testo Descrittivo */}
           <Card.Text>
-            Tipo di Contratto: **{jobData.job_type || "Non specificato"}**
+            Tipo di Contratto: {jobData.job_type || "Non specificato"}
           </Card.Text>
 
           {/* Pulsante per Visualizzare l'Offerta Completa */}
