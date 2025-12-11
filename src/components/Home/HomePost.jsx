@@ -24,7 +24,7 @@ const fetchPost = () => {
         }
       })
       .then((arrayOfPost) => {
-        setPost(arrayOfPost.slice(-10));
+        setPost(arrayOfPost.slice(-50));
         setLoading(false)
       })
       .catch((err) => {
