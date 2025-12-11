@@ -2,28 +2,93 @@ import "bootstrap-icons/font/bootstrap-icons.css"
 import { useState } from "react"
 import { FcLike } from "react-icons/fc"
 import { FaHandsBubbles, FaArrowsRotate } from "react-icons/fa6"
-import { Card, Row, Col, Container, Button, Dropdown } from "react-bootstrap"
+import { Card, Row, Col, Container, Button, Dropdown, Toast,Modal, Form } from "react-bootstrap"
 import { BsPersonCircle } from "react-icons/bs"
 import { useSelector } from "react-redux"
 import { deletePostAction, fetchPostAction } from "../../redux/actions/actions"
 import { useDispatch } from "react-redux"
+import { useRef } from "react"
 
 function SinglePost(props) {
+   const { post } = props
   const { currentUser } = useSelector((state) => state.profile)
+    const [showToast, setShowToast] = useState(false)
+    const [showEditModal, setShowEditModal] = useState(false)
+  const [editText, setEditText] = useState(post.text) // Testo modificabile del post
+  const [isUpdating, setIsUpdating] = useState(false) // Stato per il caricamento (Spinner)
   const dispatch = useDispatch()
 
-  // Funzioni placeholder per la gestione dell'azione
+  // NUOVI STATI PER L'IMMAGINE
+  const [selectedFile, setSelectedFile] = useState(null) // Il file da caricare
+  const [imagePreview, setImagePreview] = useState(post.image) // URL per l'anteprima
+  
+  const fileInputRef = useRef(null) // Riferimento per l'input file nascosto
+
   const handleEdit = () => {
-    console.log("Modifica il post:", post._id)
-    // Qui andrebbe la logica per aprire un modale o navigare alla pagina di modifica
+    // Carica il testo e l'immagine attuali del post nello stato del modale
+    setEditText(post.text) 
+    setImagePreview(post.image) // Inizializza l'anteprima con l'immagine esistente
+    setSelectedFile(null)       // Assicurati che non ci siano file selezionati
+    setShowEditModal(true)
+  }
+  
+  const handleCloseEdit = () => {
+    setShowEditModal(false)
+    setEditText(post.text) 
+    setImagePreview(post.image) 
+    setSelectedFile(null)
   }
 
+  // NUOVA FUNZIONE: Gestione del file selezionato
+  const handleFileChange = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      setSelectedFile(file)
+      // Crea un URL locale per l'anteprima
+      setImagePreview(URL.createObjectURL(file)) 
+    } else {
+      setSelectedFile(null)
+      setImagePreview(post.image) // Ripristina l'immagine esistente se non è stato selezionato nulla
+    }
+  }
+
+  // 3. LOGICA DI AGGIORNAMENTO DEL POST (UPDATE)
+  const handleUpdate = async () => {
+    setIsUpdating(true)
+    
+    try {
+        
+        // FASE 1: Aggiornamento del Testo (se modificato)
+        if (editText.trim() !== post.text.trim()) {
+            const updatedTextData = { text: editText };
+            await dispatch(updatePostAction(post._id, updatedTextData))
+            // Se l'API restituisce il post aggiornato, potresti usarlo qui
+        }
+        
+        // FASE 2: Upload della Nuova Immagine (se selezionata)
+        if (selectedFile) {
+            // uploadPostPictureAction si occuperà di creare l'oggetto FormData
+            await dispatch(uploadPostPictureAction(post._id, selectedFile))
+            // L'API di Strive School aggiorna il post e restituisce i dati
+        }
+        
+        // Successo: chiudi il modale e ricarica i post
+        handleCloseEdit()
+        dispatch(fetchPostAction()) 
+
+    } catch (error) {
+        console.error("Errore durante l'aggiornamento/upload:", error)
+        alert("Errore nell'aggiornamento: " + error.message)
+    } finally {
+        setIsUpdating(false)
+    }
+  }
   const handleDelete = () => {
     if (window.confirm("Sei sicuro di voler eliminare questo post?")) {
       console.log("Elimina il post:", post._id)
       dispatch(deletePostAction(post._id))
       dispatch(fetchPostAction())
-      // Qui andrebbe la chiamata API per l'eliminazione del post
+      setShowToast(true)
     }
   }
   // eslint-disable-next-line no-unused-vars
@@ -37,9 +102,9 @@ function SinglePost(props) {
     // Generazione del numero casuale tra 1 e 300
     return Math.floor(Math.random() * 300) + 1
   })
-  const { post } = props
   const isMyPost = post?.user?._id === currentUser._id
   return (
+    <> 
     <div className="col-12 col-md-8 col-lg-10 mx-auto">
       <Card className="mb-3">
         {/* 1. Intestazione del Post (Acer, Follower, Sponsorizzato) */}
@@ -185,6 +250,115 @@ function SinglePost(props) {
         </Card.Body>
       </Card>
     </div>
+   <Modal show={showEditModal} onHide={handleCloseEdit}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modifica il tuo post</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            {/* Campo Testo (Descrizione) */}
+            <Form.Group className="mb-3" controlId="formPostEdit">
+              <Form.Label>Descrizione</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                value={editText} 
+                onChange={(e) => setEditText(e.target.value)}
+                disabled={isUpdating}
+              />
+            </Form.Group>
+
+            {/* Campo Immagine */}
+            <Form.Group>
+              {/* Anteprima dell'immagine (esistente o selezionata) */}
+              {imagePreview && ( 
+                <div className="mb-3">
+                  <img
+                    src={imagePreview}
+                    alt="Anteprima post media"
+                    className=" w-100 border rounded"
+                    style={{ maxHeight: "300px", objectFit: "cover" }}
+                  />
+                  {/* Bottone per rimuovere l'anteprima/file selezionato */}
+                  <Button 
+                    variant="link" 
+                    size="sm" 
+                    onClick={() => handleFileChange({ target: { files: [] } })}
+                    className="text-danger p-0 mt-1"
+                  >
+                    Rimuovi
+                  </Button>
+                </div>
+              )}
+
+              {/* INPUT FILE NASCOSTO */}
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                accept="image/*"
+                hidden
+              />
+
+              {/* Bottone per selezionare un nuovo file */}
+              <div className="d-flex justify-content-center mt-3">
+                <div
+                  className={`d-flex align-items-center p-2 rounded ${!isUpdating ? 'text-primary' : 'text-muted'}`}
+                  style={{ cursor: !isUpdating ? "pointer" : "default" }}
+                  onClick={!isUpdating ? () => fileInputRef.current.click() : null}
+                >
+                    {/* <BsImage size={20} className="me-2" /> */}
+                    <span className="fw-semibold small">
+                      {selectedFile ? 'Cambia Immagine' : (post.image ? 'Sostituisci Immagine' : 'Aggiungi Immagine')}
+                    </span>
+                </div>
+              </div>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={handleCloseEdit}
+            disabled={isUpdating}
+          >
+            Annulla
+          </Button>
+          <Button
+            variant="primary"
+            onClick={handleUpdate} 
+            disabled={isUpdating || (editText.trim() === post.text.trim() && !selectedFile)} 
+            // Disabilita se non è cambiato nulla (nè testo nè file)
+          >
+            {isUpdating ? (
+                <>
+                    <Spinner animation="border" size="sm" className="me-2" />
+                    Salvataggio...
+                </>
+            ) : "Salva Modifiche"}
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    <Toast
+        bg="success"
+        onClose={() => setShowToast(false)}
+        show={showToast}
+        delay={2500}
+        autohide
+        style={{
+          position: "fixed",
+          bottom: 20,
+          right: 20,
+          zIndex: 1050,
+        }}
+      >
+        <Toast.Header>
+          <strong className="me-auto">Eliminato!</strong>
+          <small>ora</small>
+        </Toast.Header>
+        <Toast.Body>Post eliminato con successo!</Toast.Body>
+      </Toast>
+    </>
   )
 }
 
