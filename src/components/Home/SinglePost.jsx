@@ -23,7 +23,7 @@ import {
   uploadFileAction,
 } from "../../redux/actions/actions"
 import { useDispatch } from "react-redux"
-import { useRef } from "react"
+import { useRef, useEffect } from "react"
 
 function SinglePost(props) {
   const { post } = props
@@ -32,6 +32,7 @@ function SinglePost(props) {
   const [showEditModal, setShowEditModal] = useState(false)
   const [editText, setEditText] = useState(post.text) // Testo modificabile del post
   const [isUpdating, setIsUpdating] = useState(false) // Stato per il caricamento (Spinner)
+  const [localObjectURL, setLocalObjectURL] = useState(null)
   const dispatch = useDispatch()
 
   // NUOVI STATI PER L'IMMAGINE
@@ -47,25 +48,55 @@ function SinglePost(props) {
     setSelectedFile(null) // Assicurati che non ci siano file selezionati
     setShowEditModal(true)
   }
-
-  const handleCloseEdit = () => {
-    setShowEditModal(false)
-    setEditText(post.text)
-    setImagePreview(post.image)
-    setSelectedFile(null)
-  }
+  useEffect(() => {
+    return () => {
+      if (localObjectURL) {
+        URL.revokeObjectURL(localObjectURL)
+      }
+    }
+  }, [localObjectURL])
 
   // NUOVA FUNZIONE: Gestione del file selezionato
   const handleFileChange = (e) => {
-    const file = e.target.files[0]
-    if (file) {
-      setSelectedFile(file)
-      // Crea un URL locale per l'anteprima
-      setImagePreview(URL.createObjectURL(file))
-    } else {
-      setSelectedFile(null)
-      setImagePreview(post.image) // Ripristina l'immagine esistente se non è stato selezionato nulla
+    const files = e.target.files
+    const file = files && files.length > 0 ? files[0] : null
+
+    // 1. Pulisci il vecchio URL temporaneo prima di procedere
+    if (localObjectURL) {
+      URL.revokeObjectURL(localObjectURL)
+      setLocalObjectURL(null)
     }
+
+    if (file) {
+      // --- CASO 1: File Selezionato ---
+      const newURL = URL.createObjectURL(file)
+
+      setSelectedFile(file)
+      setImagePreview(newURL)
+      setLocalObjectURL(newURL) // Salva il riferimento per la pulizia
+    } else {
+      // --- CASO 2: Nessun File Selezionato (Cancellazione/Reset) ---
+
+      setSelectedFile(null)
+
+      // Se l'utente rimuove, vogliamo che l'anteprima sparisca COMPLETAMENTE (null)
+      // L'URL originale (post.image) tornerà solo se chiudi e riapri il modale.
+      setImagePreview(null)
+    }
+  }
+
+  // Modifica la funzione di reset del modale per gestire l'URL locale
+  const handleCloseEdit = () => {
+    // Pulisci l'URL locale quando chiudi, se esiste
+    if (localObjectURL) {
+      URL.revokeObjectURL(localObjectURL)
+      setLocalObjectURL(null)
+    }
+
+    setShowEditModal(false)
+    setEditText(post.text)
+    setImagePreview(post.image) // Resetta l'anteprima all'immagine originale
+    setSelectedFile(null)
   }
 
   // 3. LOGICA DI AGGIORNAMENTO DEL POST (UPDATE)
@@ -85,9 +116,7 @@ function SinglePost(props) {
         const formData = new FormData()
         formData.append("post", selectedFile)
         // uploadPostPictureAction si occuperà di creare l'oggetto FormData
-        // await dispatch(uploadPostPictureAction(post._id, selectedFile))
-        dispatch(uploadFileAction(post._id, selectedFile))
-        return
+        dispatch(uploadFileAction(post?._id, selectedFile))
         // L'API di Strive School aggiorna il post e restituisce i dati
       }
 

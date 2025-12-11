@@ -213,10 +213,13 @@ export const modifyPostAction = (postId, newText) => {
       })
   }
 }
-export const uploadFileAction = (postId, formData) => {
+
+export const uploadFileAction = (postId, newFile) => {
   const URL = `https://striveschool-api.herokuapp.com/api/posts/${postId}`
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY"
+  const formData = new FormData()
+  formData.append("post", newFile)
   // eslint-disable-next-line no-unused-vars
   return (dispatch, getState) => {
     fetch(URL, {
@@ -230,7 +233,12 @@ export const uploadFileAction = (postId, formData) => {
         if (response.ok) {
           return response.json()
         } else {
-          throw new Error("la chiamata non è ok: " + response.status)
+          throw new Error(
+            "Errore " +
+              response.status +
+              " durante l'upload: " +
+              (response.message || "Errore sconosciuto. Controlla il token.")
+          )
         }
       })
       .then((data) => {
