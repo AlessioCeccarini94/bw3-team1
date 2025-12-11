@@ -21,6 +21,7 @@ const LeftSidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const dispatch = useDispatch()
     const [profileData, setProfileData] = useState(null)
+    // eslint-disable-next-line no-unused-vars
     const [profileImg, setProfileImg] = useState(null)
     const [isUploading, setIsUploading] = useState(false)
     const fileInputRef = useRef(null)
