@@ -14,31 +14,30 @@ const Experiences = (props) => {
   const experiences = useSelector((state) => state.experiences.experiences)
 
   return (
-   
-          <Card className="mb-3 p-2 shadow">
-            <Card.Body>
-              <h4 className="mb-3">Esperienze</h4>
-              {experiences.length === 0 && (
-                <div className="d-flex">
-                  <div>
-                    <h6 className="mb-0">Nessuna Esperienza</h6>
-                  </div>
-                </div>
-              )}
-              {(experiences || []).map((experience, i) => {
-                return (
-                  <div key={experience._id}>
-                    <SingleExperience
-                      experienceData={experience}
-                      itemIndex={i}
-                      userId={props.id}
-                    />
-                    <hr />
-                  </div>
-                )
-              })}
-            </Card.Body>
-          </Card>
+    <Card className="mb-3 p-2 shadow">
+      <Card.Body>
+        <h4 className="mb-3">Esperienze</h4>
+        {experiences.length === 0 && (
+          <div className="d-flex">
+            <div>
+              <h6 className="mb-0">Nessuna Esperienza</h6>
+            </div>
+          </div>
+        )}
+        {(experiences || []).map((experience, i) => {
+          return (
+            <div key={experience._id}>
+              <SingleExperience
+                experienceData={experience}
+                itemIndex={i}
+                userId={props.id}
+              />
+              <hr />
+            </div>
+          )
+        })}
+      </Card.Body>
+    </Card>
   )
 }
 

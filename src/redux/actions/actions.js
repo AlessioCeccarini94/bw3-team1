@@ -24,7 +24,6 @@ export const fetchExperiencesAction = (userId) => {
       .catch((error) => console.log(error))
   }
 }
-
 export const addExperienceAction = (userId, experience) => {
   // eslint-disable-next-line no-unused-vars
   return (dispatch, getState) => {
