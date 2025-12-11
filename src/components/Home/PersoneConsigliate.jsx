@@ -4,6 +4,7 @@ import { BsPersonCircle } from 'react-icons/bs';
 
 const PersoneConsigliate = () => {
   return (
+    <div className="col-12 col-lg-10 mx-auto">
     <Card className="shadow-sm">
       {/* Intestazione */}
       <Card.Header as="h5" className="bg-white border-0 py-3">
@@ -115,6 +116,7 @@ const PersoneConsigliate = () => {
         </ListGroup.Item>
       </ListGroup>
     </Card>
+    </div>
   );
 };
 

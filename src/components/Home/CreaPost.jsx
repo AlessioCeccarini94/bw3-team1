@@ -1,12 +1,10 @@
 import React from 'react';
 import { Card, Form, InputGroup } from 'react-bootstrap';
-// Importo le icone per Video, Foto e Articolo (presumo siano in 'react-icons/bs' o simili)
+
 import { BsPersonCircle, BsImage, BsPlayBtnFill, BsPencilSquare } from 'react-icons/bs'; 
 
 const CreaPost = ({ currentUser }) => {
-  // currentUser è opzionale, usato solo per l'immagine del profilo
-
-  // Funzione placeholder per l'immagine del profilo
+ 
   const renderProfileImage = () => {
     if (currentUser && currentUser.image) {
       return (
@@ -18,11 +16,12 @@ const CreaPost = ({ currentUser }) => {
         />
       );
     }
-    // Placeholder se non c'è l'immagine
+
     return <BsPersonCircle size={48} className="text-muted" />;
   };
 
   return (
+    <div className="col-12 col-lg-10 mx-auto">
     <Card className="mb-3 shadow-sm mt-3">
       <Card.Body className="p-3">
         
@@ -38,7 +37,6 @@ const CreaPost = ({ currentUser }) => {
               placeholder="Crea un post"
               className="rounded-pill bg-white border border-secondary py-3"
               style={{ cursor: 'pointer' }}
-              readOnly // Rende l'input non modificabile, come un pulsante
               onClick={() => console.log('Apro il modale per creare un post')}
             />
           </InputGroup>
@@ -80,6 +78,7 @@ const CreaPost = ({ currentUser }) => {
         </div>
       </Card.Body>
     </Card>
+    </div>
   );
 };
 
