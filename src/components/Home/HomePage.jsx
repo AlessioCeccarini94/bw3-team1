@@ -19,11 +19,10 @@ function HomePage() {
          <CreaPost/> 
          <PersoneConsigliate/>
          <HomePost/>
-        
         </Col>
 
         {/* Sidebar Destra - Notizie */}
-        <Col lg={3} className="d-none d-lg-block">
+        <Col lg={3} className="d-none d-lg-block p-0">
           <RightSidebar />
         </Col>
       </Row>

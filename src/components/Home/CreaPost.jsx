@@ -1,73 +1,122 @@
-import React from "react"
-import { Card, Form, InputGroup } from "react-bootstrap"
+import { Card, Form, InputGroup, Button, Modal, Toast} from "react-bootstrap"
 import { useState, useRef } from "react"
 import {
   BsPersonCircle,
   BsImage,
   BsPlayBtnFill,
   BsPencilSquare,
-} from "react-icons/bs"
+} from 'react-icons/bs';
+import { useSelector } from "react-redux"
 
-const CreaPost = ({ currentUser }) => {
-  const [profileData, setProfileData] = useState(null)
+const CreaPost = () => {
+  const { currentUser } = useSelector((state) => state.profile)
+  const [show, setShow] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const handleShow = () => setShow(true);
+  const handleClose = () => {
+    setShow(false);
+    // Pulisci lo stato del post al momento della chiusura
+    setPostText('');
+    setPostMedia(null);
+  }
   // eslint-disable-next-line no-unused-vars
-  const [profileImg, setProfileImg] = useState(null)
   const [isUploading, setIsUploading] = useState(false)
   const fileInputRef = useRef(null)
+  const [postText, setPostText] = useState("");
+  const [postMedia, setPostMedia] = useState(null);
+  const API_URL = "https://striveschool-api.herokuapp.com/api/posts"; // Endpoint
   const API_KEY =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY"
-  const API_URL = "https://striveschool-api.herokuapp.com/api/profile/me"
 
-  //inizio replica da copiare
-  const handleFileChange = async (e) => {
-    const file = e.target.files[0]
-    if (!file) return
+  const handlePostMediaChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-    const previewUrl = URL.createObjectURL(file)
-    setProfileImg(previewUrl)
-    setIsUploading(true)
+    // Crea un URL di anteprima per visualizzare subito il file selezionato
+    const previewUrl = URL.createObjectURL(file);
+    setPostMedia({ file: file, previewUrl: previewUrl });
 
-    // Carica l'immagine sul server
+    // Pulisci l'input file in modo che onChange si attivi anche se
+    // l'utente seleziona lo stesso file due volte.
+    e.target.value = null;
+  };
+  
+  // Questa è la funzione che gestisce la creazione del post (solo testo)
+  const createPost = async () => {
+    setIsUploading(true); // Uso isUploading per bloccare i bottoni
+    let createdPost;
+    
+    // 1. CREA IL POST (SOLO TESTO)
     try {
-      const formData = new FormData()
-      formData.append("profile", file)
-
-      const response = await fetch(`${API_URL}/picture`, {
+      const postResponse = await fetch(API_URL, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${API_KEY}`,
+          "Content-Type": "application/json",
         },
-        body: formData,
-      })
+        body: JSON.stringify({ text: postText }),
+      });
 
-      if (response.ok) {
-        const data = await response.json()
-        console.log("Immagine caricata con successo:", data)
-        // Aggiorna con l'URL dal server
-        setProfileImg(data.image)
-        // Aggiorna anche i dati del profilo
-        setProfileData((prev) => ({ ...prev, profileUrl: data.image }))
-      } else {
-        throw new Error("Errore nel caricamento dell'immagine")
+      if (!postResponse.ok) {
+        throw new Error("Errore nella creazione del post: " + postResponse.status);
       }
+      
+      createdPost = await postResponse.json();
+      console.log("Post creato con successo:", createdPost);
+      
     } catch (error) {
-      console.error("Errore durante il caricamento:", error)
-      alert("Errore nel caricamento dell'immagine. Riprova.")
-      // Ripristina l'immagine precedente in caso di errore
-      setProfileImg(profileData.profileUrl)
-    } finally {
-      setIsUploading(false)
+      console.error("Errore durante la creazione del post:", error);
+      alert("Errore nella creazione del post. Riprova.");
+      setIsUploading(false);
+      return;
     }
-  }
+
+    // 2. CARICA IL MEDIA (SE ESISTE)
+    if (postMedia) {
+      const postId = createdPost._id;
+      const formData = new FormData();
+      formData.append("post", postMedia.file); // 'post' è il nome del campo richiesto dall'API
+
+      try {
+        const mediaResponse = await fetch(`${API_URL}/${postId}`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${API_KEY}`,
+            // NON includere "Content-Type": "application/json" quando usi FormData
+          },
+          body: formData,
+        });
+
+        if (!mediaResponse.ok) {
+          throw new Error("Errore nel caricamento del media: " + mediaResponse.status);
+        }
+
+        console.log("Media caricato con successo sul post.");
+
+      } catch (error) {
+        console.error("Errore durante il caricamento del media:", error);
+        alert("Post creato ma Errore nel caricamento del media. Riprova.");
+      }
+    }
+
+    // 3. COMPLETAMENTO
+    // alert("Post pubblicato con successo!");
+    setShowToast(true)
+    setIsUploading(false);
+    handleClose(); // Chiudi il modale
+    // A questo punto, dovresti chiamare una funzione o dispatchare un'azione
+    // per aggiornare la lista dei post nella tua applicazione.
+    // ESEMPIO: dispatch(fetchPostsAction()); 
+  };
 
   return (
     <>
       <input
         type="file"
-        accept="image/*"
+        accept="image/*,video/*"
         ref={fileInputRef}
         style={{ display: "none" }}
-        onChange={handleFileChange}
+        onChange={handlePostMediaChange}
       />
       <div className="col-12 col-lg-10 mx-auto">
         <Card className="mb-3 shadow-sm mt-3">
@@ -97,9 +146,7 @@ const CreaPost = ({ currentUser }) => {
                   placeholder="Crea un post"
                   className="rounded-pill bg-white border border-secondary py-3"
                   style={{ cursor: "pointer" }}
-                  onClick={() =>
-                    console.log("Apro il modale per creare un post")
-                  }
+                 onClick={handleShow}
                 />
               </InputGroup>
             </div>
@@ -127,22 +174,11 @@ const CreaPost = ({ currentUser }) => {
                 <BsImage size={20} className="text-primary me-2" />
                 <span className="fw-semibold text-secondary small">Foto</span>
               </div>
-
-              {/* Foto */}
-              <div
-                className="d-flex align-items-center p-2 rounded"
-                style={{ cursor: "pointer" }}
-                onClick={() => console.log("Aggiungi Foto")}
-              >
-                <BsImage size={20} className="text-primary me-2" />
-                <span className="fw-semibold text-secondary small">Foto</span>
-              </div>
-
               {/* Scrivi un articolo (Articolo) */}
               <div
                 className="d-flex align-items-center p-2 rounded"
                 style={{ cursor: "pointer" }}
-                onClick={() => console.log("Scrivi un articolo")}
+               onClick={handleShow}
               >
                 <BsPencilSquare
                   size={20}
@@ -157,6 +193,94 @@ const CreaPost = ({ currentUser }) => {
           </Card.Body>
         </Card>
       </div>
+
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Crea un post</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>Descrizione</Form.Label>
+              <Form.Control as="textarea" 
+                rows={3} 
+                value={postText} 
+                onChange={(e) => setPostText(e.target.value)} 
+                disabled={isUploading} />
+            </Form.Group>
+            <Form.Group>
+             {postMedia?.previewUrl && (
+                  <div className="mb-3">
+                    <img
+                      src={postMedia.previewUrl}
+                      alt="Anteprima post media"
+                      className=" w-100"
+                      style={{
+                        maxHeight: "300px", 
+                        objectFit: "cover",
+                      }}
+                    />
+                  </div>
+                )}
+
+
+              {/* Bottoni per caricare Foto/Video */}
+               <div className="d-flex justify-content-around mt-3">
+              {/* Video */}
+              <div
+                className="d-flex align-items-center p-2 rounded"
+                style={{ cursor: "pointer" }}
+                onClick={() => fileInputRef.current.click()}
+                disabled={isUploading}
+              >
+                <BsPlayBtnFill size={20} className="text-success me-2" />
+                <span className="fw-semibold text-secondary small">Video</span>
+              </div>
+
+              {/* Foto */}
+              <div
+                className="d-flex align-items-center p-2 rounded"
+                style={{ cursor: "pointer" }}
+                onClick={() => fileInputRef.current.click()}
+                disabled={isUploading}
+              >
+                <BsImage size={20} className="text-primary me-2" />
+                <span className="fw-semibold text-secondary small">Foto</span>
+              </div>
+             </div>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose} disabled={isUploading}>
+            Annulla
+          </Button>
+          <Button 
+            variant="primary" 
+            onClick={createPost} // CHIAMATA ALLA FUNZIONE DI CREAZIONE/UPLOAD
+            disabled={isUploading || postText.trim() === ""} // Disabilita se non c'è testo
+          >
+            {isUploading ? "Pubblicazione..." : "Pubblica Post"}
+          </Button>
+        </Modal.Footer>
+      </Modal>
+       <Toast bg='success' onClose={() => setShowToast(false)} show={showToast} delay={2500} autohide 
+               style={{
+                position: 'fixed', 
+                bottom: 20,         
+                right: 20,   
+                zIndex: 1050,     
+             }}>
+          <Toast.Header>
+            <strong className="me-auto">Pubblicato!</strong>
+            <small>ora</small>
+          </Toast.Header>
+          <Toast.Body>Post pubblicato con successo!</Toast.Body>
+        </Toast>
     </>
   )
 }
