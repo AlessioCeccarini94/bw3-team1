@@ -4,7 +4,7 @@ export const DELETE_EXPERIENCES = "DELETE_EXPERIENCES"
 export const FETCH_JOBS = "FETCH_JOBS"
 export const ADD_JOBS = "ADD_JOBS"
 export const DELETE_JOBS = "DELETE_JOBS"
-export const ADD_POSTS = "ADD_POSTS"
+export const POST_POSTS = "POST_POSTS"
 
 export const fetchExperiencesAction = (userId) => {
   const URL = `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`
@@ -99,8 +99,8 @@ export const fetchJobsAction = () => {
   }
 }
 
-export const postPostsAction = () => {
-  const URL = "https://striveschool-api.herokuapp.com/api/posts"
+export const addPostsAction = () => {
+  const URL = `https://striveschool-api.herokuapp.com/api/posts`
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY"
   // eslint-disable-next-line no-unused-vars
@@ -121,7 +121,7 @@ export const postPostsAction = () => {
       })
       .then((arrayOfPost) => {
         dispatch({
-          type: ADD_POSTS,
+          type: POST_POSTS,
           payload: arrayOfPost,
         })
       })
