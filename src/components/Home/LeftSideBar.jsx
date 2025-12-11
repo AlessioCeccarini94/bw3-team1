@@ -11,12 +11,19 @@ import {
   BsChevronUp,
 } from "react-icons/bs"
 import { GiTakeMyMoney } from "react-icons/gi"
-import { useState } from "react"
+import { useState,useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { fetchProfile } from "../../redux/reducers/profileSlice"
 
 import { Link } from "react-router-dom"
 
 const LeftSidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const dispatch = useDispatch()
+     useEffect(() => {
+        dispatch(fetchProfile())
+      }, [dispatch])
+    const { currentUser } = useSelector((state) => state.profile)
 
   // Funzione per invertire lo stato
   const toggleCollapse = () => setIsOpen(!isOpen);
@@ -80,8 +87,8 @@ const LeftSidebar = () => {
             </div>
 
             <div className="mt-2 pt-2 pb-1 px-3 ">
-              <h5 className="mb-0 fw-bold">Vincenzo Calvaruso</h5>
-              <p className="text-muted mb-2">Alcamo, Sicilia</p>
+              <h5 className="mb-0 fw-bold">{currentUser?.name} {currentUser?.surname}</h5>
+              <p className="text-muted mb-2">{currentUser?.area}</p>
             </div>
           </div>
 
