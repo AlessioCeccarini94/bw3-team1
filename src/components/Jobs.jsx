@@ -1,34 +1,41 @@
-import { Container, Row } from "react-bootstrap"
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { fetchJobsAction } from "../redux/actions/actions"
-import SingleJob from "./SingleJob"
+import { Container, Row } from "react-bootstrap";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchJobsAction } from "../redux/actions/actions";
+import SingleJob from "./SingleJob";
+import { useLocation } from "react-router-dom";
 
 const Jobs = () => {
-  const dispatch = useDispatch()
-  const jobs = useSelector((state) => state.jobs)
+  const dispatch = useDispatch();
+  const jobs = useSelector((state) => state.jobs);
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const searchQuery = params.get("search") || "";
+
   useEffect(() => {
-    dispatch(fetchJobsAction())
-  }, [dispatch])
-  console.log("jobs", jobs)
-  const jobsArray = jobs.jobs.data;
+    dispatch(fetchJobsAction(searchQuery));
+  }, [dispatch, searchQuery]);
+  console.log("jobs", jobs);
+  const jobsArray = jobs.jobs;
 
   return (
     <Container>
       <Row className="mt-4">
         <h3 className="mb-4">Le principali offerte di lavoro per te</h3>
-       { jobsArray && Array.isArray(jobsArray) && jobsArray.length > 0 ? (
-          jobsArray.slice(0,9).map((job) => {
+        {jobsArray && Array.isArray(jobsArray) && jobsArray.length > 0 ? (
+          jobsArray.slice(0, 9).map((job) => {
             // L'array è disponibile, esegui il map
-            return <SingleJob key={job._id} jobData={job} />
+            return <SingleJob key={job._id} jobData={job} />;
           })
         ) : (
           // Mostra un messaggio di caricamento o di assenza dati
-          <p className="text-center w-100">Caricamento lavori in corso o nessun dato trovato...</p>
+          <p className="text-center w-100">
+            Caricamento lavori in corso o nessun dato trovato...
+          </p>
         )}
       </Row>
     </Container>
-  )
-}
+  );
+};
 
-export default Jobs
+export default Jobs;
