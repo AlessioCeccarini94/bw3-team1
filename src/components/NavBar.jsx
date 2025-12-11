@@ -30,8 +30,6 @@ const NavBar = () => {
     e.preventDefault();
     if (searchQuery.trim()) {
       navigate(`/jobs?search=${searchQuery}`);
-
-      setSearchQuery("");
     }
   };
 

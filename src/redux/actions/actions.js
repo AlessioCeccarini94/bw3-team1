@@ -1,4 +1,4 @@
-import { data } from "react-router-dom";
+//import { data } from "react-router-dom";
 
 export const FETCH_EXPERIENCES = "FETCH_EXPERIENCES";
 export const ADD_EXPERIENCES = "ADD_EXPERIENCES";
@@ -78,8 +78,11 @@ export const deleteExperienceAction = (userId, experienceId) => {
   };
 };
 
-export const fetchJobsAction = () => {
-  const URL = "https://strive-benchmark.herokuapp.com/api/jobs";
+export const fetchJobsAction = (query = "") => {
+  const URL = query
+    ? `https://strive-benchmark.herokuapp.com/api/jobs?search=${query}`
+    : "https://strive-benchmark.herokuapp.com/api/jobs";
+
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY";
 
@@ -94,7 +97,7 @@ export const fetchJobsAction = () => {
       .then((data) => {
         dispatch({
           type: FETCH_JOBS,
-          payload: data,
+          payload: data.data,
         });
       })
       .catch((error) => console.log(error));
@@ -115,7 +118,6 @@ export const addPostsAction = (e) => {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
       },
       body: formData,
     })
