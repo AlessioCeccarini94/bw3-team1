@@ -1,17 +1,19 @@
-import { data } from "react-router-dom";
-
-export const FETCH_EXPERIENCES = "FETCH_EXPERIENCES";
-export const ADD_EXPERIENCES = "ADD_EXPERIENCES";
-export const DELETE_EXPERIENCES = "DELETE_EXPERIENCES";
-export const FETCH_JOBS = "FETCH_JOBS";
-export const ADD_JOBS = "ADD_JOBS";
-export const DELETE_JOBS = "DELETE_JOBS";
-export const POST_POSTS = "POST_POSTS";
+export const FETCH_EXPERIENCES = "FETCH_EXPERIENCES"
+export const ADD_EXPERIENCES = "ADD_EXPERIENCES"
+export const DELETE_EXPERIENCES = "DELETE_EXPERIENCES"
+export const FETCH_JOBS = "FETCH_JOBS"
+export const ADD_JOBS = "ADD_JOBS"
+export const DELETE_JOBS = "DELETE_JOBS"
+export const POST_POSTS = "POST_POSTS"
+export const FETCH_POSTS = "FETCH_POSTS"
+export const FETCH_POST_ERROR = "FETCH_POST_ERROR"
+export const FETCH_POST_LOADING = "FETCH_POST_LOADING"
+export const DELETE_POST = "DELETE_POST"
 
 export const fetchExperiencesAction = (userId) => {
-  const URL = `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`;
+  const URL = `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY"
   // eslint-disable-next-line no-unused-vars
   return (dispatch, getState) => {
     fetch(URL, {
@@ -24,17 +26,17 @@ export const fetchExperiencesAction = (userId) => {
         dispatch({
           type: FETCH_EXPERIENCES,
           payload: data,
-        });
+        })
       })
-      .catch((error) => console.log(error));
-  };
-};
+      .catch((error) => console.log(error))
+  }
+}
 export const addExperienceAction = (userId, experience) => {
   // eslint-disable-next-line no-unused-vars
   return (dispatch, getState) => {
-    const URL = `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`;
+    const URL = `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`
     const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY"
     return fetch(URL, {
       method: "POST",
       headers: {
@@ -48,19 +50,19 @@ export const addExperienceAction = (userId, experience) => {
         dispatch({
           type: ADD_EXPERIENCES,
           payload: data,
-        });
-        return data;
+        })
+        return data
       })
-      .catch((error) => console.log(error));
-  };
-};
+      .catch((error) => console.log(error))
+  }
+}
 
 export const deleteExperienceAction = (userId, experienceId) => {
   // eslint-disable-next-line no-unused-vars
   return (dispatch, getState) => {
-    const URL = `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${experienceId}`;
+    const URL = `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${experienceId}`
     const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY"
     fetch(URL, {
       method: "DELETE",
       headers: {
@@ -71,17 +73,17 @@ export const deleteExperienceAction = (userId, experienceId) => {
         dispatch({
           type: DELETE_EXPERIENCES,
           payload: experienceId,
-        });
-        console.log("deleted");
+        })
+        console.log("deleted")
       })
-      .catch((error) => console.log(error));
-  };
-};
+      .catch((error) => console.log(error))
+  }
+}
 
 export const fetchJobsAction = () => {
-  const URL = "https://strive-benchmark.herokuapp.com/api/jobs";
+  const URL = "https://strive-benchmark.herokuapp.com/api/jobs"
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY"
 
   // eslint-disable-next-line no-unused-vars
   return (dispatch, getState) => {
@@ -95,45 +97,80 @@ export const fetchJobsAction = () => {
         dispatch({
           type: FETCH_JOBS,
           payload: data,
-        });
+        })
       })
-      .catch((error) => console.log(error));
-  };
-};
+      .catch((error) => console.log(error))
+  }
+}
 
-export const addPostsAction = (e) => {
-  const URL = `https://striveschool-api.herokuapp.com/api/posts`;
+export const fetchPostAction = () => {
+  const URL = `https://striveschool-api.herokuapp.com/api/posts/`
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY";
-  const file = e.target.files[0];
-  if (!file) return;
-  const formData = new FormData();
-  formData.append("post", file);
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY"
   // eslint-disable-next-line no-unused-vars
   return (dispatch, getState) => {
     fetch(URL, {
-      method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
       },
-      body: formData,
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
         } else {
-          throw new Error("la chiamata non é ok: " + res.status);
+          throw new Error("la chiamata non è ok: " + response.status)
         }
       })
       .then((arrayOfPost) => {
         dispatch({
-          type: POST_POSTS,
-          payload: arrayOfPost,
-        });
+          type: FETCH_POSTS,
+          payload: arrayOfPost.slice(-50),
+        })
+        dispatch({
+          type: FETCH_POST_LOADING,
+          payload: false,
+        })
       })
       .catch((err) => {
-        console.log("Errore nella chiamata", err);
-      });
-  };
-};
+        console.log("Errore nella chiamata", err)
+        dispatch({
+          type: FETCH_POST_ERROR,
+          payload: JSON.stringify(err, Object.getOwnPropertyNames(err)),
+        })
+        dispatch({
+          type: FETCH_POST_LOADING,
+          payload: false,
+        })
+      })
+  }
+}
+export const deletePostAction = (postId) => {
+  const URL = `https://striveschool-api.herokuapp.com/api/posts/${postId}`
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY"
+  // eslint-disable-next-line no-unused-vars
+  return (dispatch, getState) => {
+    fetch(URL, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        } else {
+          throw new Error("la chiamata non è ok: " + response.status)
+        }
+      })
+      .then(() => {
+        dispatch({
+          type: DELETE_POST,
+          payload: postId,
+        })
+      })
+      .catch((err) => {
+        console.log("Errore nella chiamata", err)
+      })
+  }
+}
