@@ -6,8 +6,10 @@ import {
   addExperienceAction,
 } from "../redux/actions/actions"
 import Footer from "./Footer"
+import { useNavigate } from "react-router-dom"
 
 const AddExperiences = ({ userId }) => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   useEffect(() => {
     console.log("userid", userId)
@@ -42,6 +44,11 @@ const AddExperiences = ({ userId }) => {
     setStartDate("")
     setEndDate("")
     setArea("")
+  }
+
+  const returnToProfile = () => {
+    navigate(`/profile`)
+    window.location.reload()
   }
 
   return (
@@ -100,13 +107,17 @@ const AddExperiences = ({ userId }) => {
               onChange={(e) => setEndDate(e.target.value)}
             />
           </Form.Group>
-          <Button type="submit" className="mt-2">
+          <Button
+            onClick={() => returnToProfile()}
+            type="submit"
+            className="mt-2"
+          >
             Aggiungi esperienza
           </Button>
         </Form>
       </Col>
       <div className="p-5"></div>
-      <Footer/>
+      <Footer />
     </Row>
   )
 }

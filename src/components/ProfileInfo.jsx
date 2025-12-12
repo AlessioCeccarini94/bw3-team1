@@ -8,6 +8,7 @@ import {
   Container,
   Spinner,
 } from "react-bootstrap"
+import { IoCameraOutline } from "react-icons/io5"
 
 // Chiave API
 
@@ -234,16 +235,15 @@ const ProfileInfo = () => {
             className="w-100 h-100"
             style={{ objectFit: "cover" }}
           />
-          <Button
-            variant="light"
-            className="position-absolute m-2"
+          <div
+            className="position-absolute m-2 btn"
             style={{ top: 0, right: 0, zIndex: 12 }}
             size="sm"
             onClick={() => coverInputRef.current.click()}
             disabled={isCoverUploading}
           >
-            {isCoverUploading ? "..." : "Cambia cover"}
-          </Button>
+            {isCoverUploading ? "..." : <IoCameraOutline size={25} />}
+          </div>
           {isCoverUploading && (
             <div
               className="position-absolute w-100 h-100 d-flex align-items-center justify-content-center"

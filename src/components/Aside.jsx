@@ -7,7 +7,7 @@ function Aside() {
   const url = window.location.href
   return (
     <>
-      <Card className="mb-3 shadow mt-5">
+      <Card className="mb-3 shadow mt-3">
         <Card.Body>
           <div className="d-flex justify-content-between align-items-baseline">
             <div>

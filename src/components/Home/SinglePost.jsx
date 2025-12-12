@@ -120,6 +120,7 @@ function SinglePost(props) {
 
       // Successo: chiudi il modale e ricarica i post
       handleCloseEdit()
+      dispatch(fetchPostAction())
     } catch (error) {
       console.error("Errore durante l'aggiornamento/upload:", error)
       alert("Errore nell'aggiornamento: " + error.message)
