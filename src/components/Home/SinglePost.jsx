@@ -122,7 +122,6 @@ function SinglePost(props) {
 
       // Successo: chiudi il modale e ricarica i post
       handleCloseEdit()
-      dispatch(fetchPostAction())
     } catch (error) {
       console.error("Errore durante l'aggiornamento/upload:", error)
       alert("Errore nell'aggiornamento: " + error.message)
@@ -149,7 +148,7 @@ function SinglePost(props) {
     // Generazione del numero casuale tra 1 e 300
     return Math.floor(Math.random() * 300) + 1
   })
-  const isMyPost = post?.user?._id === currentUser._id
+  const isMyPost = post?.user?._id === currentUser?._id
   return (
     <>
       <div className="col-12 col-md-8 col-lg-10 mx-auto">

@@ -31,9 +31,9 @@ const HomePage = () => {
       {post && (
         <Container fluid className="mt-2">
           <Row xs={12}>
-            {post?.map((item, index) => {
+            {post?.map((item) => {
               return (
-                <Col xs={12} className="p-0" key={index}>
+                <Col xs={12} className="p-0" key={item._id}>
                   <SinglePost post={item} />
                 </Col>
               )

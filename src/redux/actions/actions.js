@@ -241,11 +241,8 @@ export const uploadFileAction = (postId, newFile) => {
           )
         }
       })
-      .then((data) => {
-        dispatch({
-          type: MODIFY_POST,
-          payload: data,
-        })
+      .then(() => {
+        dispatch(fetchPostAction())
       })
       .catch((err) => {
         console.log("Errore nella chiamata", err)
