@@ -30,7 +30,7 @@ function Aside() {
         <Card.Body>
           <h6>Altri profili consultati</h6>
           <p className="text-muted">Solo per te</p>
-          <Row className="mb-3">
+          <Row className="mb-3 ms-2 ">
             {/* Colonna Icona/Immagine */}
             <Col xs="auto" className="p-0 me-3">
               <BsFillPersonFill
@@ -63,7 +63,7 @@ function Aside() {
             </Col>
           </Row>
           <hr className="my-3" />
-          <Row className="mb-3">
+          <Row className="mb-3 ms-2">
             {/* Colonna Icona/Immagine */}
             <Col xs="auto" className="p-0 me-3">
               <BsFillPersonFill
@@ -98,7 +98,7 @@ function Aside() {
             </Col>
           </Row>
           <hr className="my-3" />
-          <Row className="mb-3">
+          <Row className="mb-3 ms-2">
             {/* Colonna Icona/Immagine */}
             <Col xs="auto" className="p-0 me-3">
               <BsFillPersonFill
@@ -137,7 +137,7 @@ function Aside() {
           <h6>Persone che potresti conoscere</h6>
           <p className="text-muted">Dal tuo settore</p>
 
-          <Row className="mb-3">
+          <Row className="mb-3 ms-2">
             {/* Colonna Icona/Immagine */}
             <Col xs="auto" className="p-0 me-3">
               <BsFillPersonFill
@@ -172,7 +172,7 @@ function Aside() {
             </Col>
           </Row>
           <hr className="my-3" />
-          <Row className="mb-3">
+          <Row className="mb-3 ms-2">
             {/* Colonna Icona/Immagine */}
             <Col xs="auto" className="p-0 me-3">
               <BsFillPersonFill
@@ -207,7 +207,7 @@ function Aside() {
             </Col>
           </Row>
           <hr className="my-3" />
-          <Row className="mb-3">
+          <Row className="mb-3 ms-2">
             {/* Colonna Icona/Immagine */}
             <Col xs="auto" className="p-0 me-3">
               <BsFillPersonFill

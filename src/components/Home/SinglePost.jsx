@@ -56,13 +56,11 @@ useEffect(() => {
     };
 }, [localObjectURL]);
 
-
-// NUOVA FUNZIONE: Gestione del file selezionato
 const handleFileChange = (e) => {
     const files = e.target.files;
     const file = files && files.length > 0 ? files[0] : null;
 
-    // 1. Pulisci il vecchio URL temporaneo prima di procedere
+    // Pulisco il vecchio URL temporaneo prima di procedere
     if (localObjectURL) {
         URL.revokeObjectURL(localObjectURL);
         setLocalObjectURL(null);
@@ -101,23 +99,22 @@ const handleCloseEdit = () => {
     setSelectedFile(null);
 };
 
-  // 3. LOGICA DI AGGIORNAMENTO DEL POST (UPDATE)
+  // LOGICA DI AGGIORNAMENTO DEL POST (UPDATE)
   const handleUpdate = async () => {
     setIsUpdating(true)
 
     try {
-      // FASE 1: Aggiornamento del Testo (se modificato)
+      // Aggiornamento del Testo (se modificato)
       if (editText.trim() !== post.text.trim()) {
         const updatedTextData = editText
         await dispatch(modifyPostAction(post._id, updatedTextData))
         // Se l'API restituisce il post aggiornato, potresti usarlo qui
       }
 
-      // FASE 2: Upload della Nuova Immagine (se selezionata)
+      // Upload della Nuova Immagine (se selezionata)
       if (selectedFile) {
         // uploadPostPictureAction si occuperà di creare l'oggetto FormData
        dispatch(uploadFileAction(post?._id, selectedFile))
-        // L'API di Strive School aggiorna il post e restituisce i dati
       }
 
       // Successo: chiudi il modale e ricarica i post

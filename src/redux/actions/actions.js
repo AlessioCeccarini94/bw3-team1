@@ -128,7 +128,7 @@ export const fetchPostAction = () => {
       .then((arrayOfPost) => {
         dispatch({
           type: FETCH_POSTS,
-          payload: arrayOfPost.slice(-50),
+          payload: arrayOfPost.slice(-100),
         });
         dispatch({
           type: FETCH_POST_LOADING,
