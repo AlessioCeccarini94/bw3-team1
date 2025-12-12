@@ -126,9 +126,10 @@ export const fetchPostAction = () => {
         }
       })
       .then((arrayOfPost) => {
+        const array = arrayOfPost.slice(-50)
         dispatch({
           type: FETCH_POSTS,
-          payload: arrayOfPost.reverse().slice(-50),
+          payload: array.reverse(-50),
         })
         dispatch({
           type: FETCH_POST_LOADING,
