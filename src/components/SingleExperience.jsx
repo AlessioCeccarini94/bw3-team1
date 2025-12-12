@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux"
-import { Button } from "react-bootstrap"
 import { deleteExperienceAction } from "../redux/actions/actions"
+import { FaRegTrashAlt } from "react-icons/fa";
 
 const SingleExperience = ({ experienceData, userId }) => {
   const dispatch = useDispatch()
@@ -28,14 +28,13 @@ const SingleExperience = ({ experienceData, userId }) => {
         </p>
         <p className=" mb-0">{experienceData.description}</p>
       </div>
-      <Button
-        onClick={() =>
-          dispatch(deleteExperienceAction(userId, experienceData._id))
-        }
-        className="ms-auto"
-      >
-        Delete
-      </Button>
+      <FaRegTrashAlt
+      onClick={() =>
+          dispatch(deleteExperienceAction(userId, experienceData._id))}
+              style={{ cursor: "pointer" }}
+              className="ms-auto"
+              size={20}
+      />
     </div>
   )
 }
