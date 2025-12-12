@@ -16,7 +16,7 @@ const experiencesReducer = (state = initialState, action) => {
     case ADD_EXPERIENCES:
       return {
         ...state,
-        experiences: action.payload,
+        experiences: [...state.experiences, action.payload],
       }
     case DELETE_EXPERIENCES:
       return {
