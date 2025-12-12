@@ -52,7 +52,6 @@ export const addExperienceAction = (userId, experience) => {
           type: ADD_EXPERIENCES,
           payload: data,
         })
-        return data
       })
       .catch((error) => console.log(error))
   }
