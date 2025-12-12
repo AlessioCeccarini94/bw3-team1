@@ -23,11 +23,11 @@ const AddExperiences = ({ userId }) => {
   const [endDate, setEndDate] = useState("")
   const [area, setArea] = useState("")
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!role || !company || !description)
       return alert("Completa tutti i campi")
-    dispatch(
+    await dispatch(
       addExperienceAction(userId, {
         role,
         company,
@@ -44,11 +44,7 @@ const AddExperiences = ({ userId }) => {
     setStartDate("")
     setEndDate("")
     setArea("")
-  }
-
-  const returnToProfile = () => {
     navigate(`/profile`)
-    window.location.reload()
   }
 
   return (
@@ -108,7 +104,6 @@ const AddExperiences = ({ userId }) => {
             />
           </Form.Group>
           <Button
-            onClick={() => returnToProfile()}
             type="submit"
             className="mt-2"
           >
