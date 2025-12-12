@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import { Navbar, Nav, Container, Form, NavDropdown } from "react-bootstrap";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchProfile } from "../redux/reducers/profileSlice";
+import { useState, useEffect } from "react"
+import { Navbar, Nav, Container, Form, NavDropdown } from "react-bootstrap"
+import { Link, useNavigate, useLocation } from "react-router-dom"
+import { useSelector, useDispatch } from "react-redux"
+import { fetchProfile } from "../redux/reducers/profileSlice"
 import {
   FaHome,
   FaUserFriends,
@@ -11,29 +11,28 @@ import {
   FaBell,
   FaSearch,
   FaLinkedin,
-} from "react-icons/fa";
-import { BsFillGrid3X3GapFill } from "react-icons/bs";
-import "./NavBar.css";
-
+} from "react-icons/fa"
+import { BsFillGrid3X3GapFill } from "react-icons/bs"
+import "../assets/NavBar.css"
 const NavBar = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate();
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const { currentUser } = useSelector((state) => state.profile);
+  const [searchQuery, setSearchQuery] = useState("")
+  const navigate = useNavigate()
+  const location = useLocation()
+  const dispatch = useDispatch()
+  const { currentUser } = useSelector((state) => state.profile)
 
   useEffect(() => {
-    dispatch(fetchProfile());
-  }, [dispatch]);
+    dispatch(fetchProfile())
+  }, [dispatch])
 
   const handleSearch = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (searchQuery.trim()) {
-      navigate(`/jobs?search=${searchQuery}`);
+      navigate(`/jobs?search=${searchQuery}`)
     }
-  };
+  }
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path) => location.pathname === path
 
   return (
     <>
@@ -402,7 +401,7 @@ const NavBar = () => {
         </Container>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default NavBar;
+export default NavBar

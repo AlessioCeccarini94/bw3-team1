@@ -10,18 +10,29 @@ import {
 } from "react-bootstrap"
 
 // Chiave API
-const API_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY"
-const API_URL = "https://striveschool-api.herokuapp.com/api/profile/me"
 
 const ProfileInfo = () => {
+  const API_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTM3ZGI0OGQzMjJmNTAwMTUxMDc2YTEiLCJpYXQiOjE3NjUyNzQ4ODMsImV4cCI6MTc2NjQ4NDQ4M30.Q9Y9RBdw6vYbWZ6d5on0z8oXE_EA5RSmRYfa__uTGkY"
+  const API_URL = `https://striveschool-api.herokuapp.com/api/profile/me`
   const [profileData, setProfileData] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
   const [profileImg, setProfileImg] = useState(null)
+  const [coverImg, setCoverImg] = useState(null)
   const [isUploading, setIsUploading] = useState(false)
+  const [isCoverUploading, setIsCoverUploading] = useState(false)
 
   const fileInputRef = useRef(null)
+  const coverInputRef = useRef(null)
+
+  const readFileAsDataUrl = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onload = () => resolve(reader.result)
+      reader.onerror = reject
+      reader.readAsDataURL(file)
+    })
 
   //inizio replica da copiare
   const handleFileChange = async (e) => {
@@ -65,23 +76,43 @@ const ProfileInfo = () => {
     }
   }
 
-  //FINE COPIA +
-  // <input
-  // type="file"
-  // accept="image/*"
-  // ref={fileInputRef}
-  // style={{ display: "none" }}
-  // onChange={handleFileChange}
-  //   />
+  const handleCoverChange = async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
 
-  // <Button
-  // onClick={() => fileInputRef.current.click()}
-  // disabled={isUploading}
-  // >
-  // {isUploading ? "..." : "+"}
-  // </Button>
+    const dataUrl = await readFileAsDataUrl(file)
+    setCoverImg(dataUrl)
+    localStorage.setItem("customCoverImage", dataUrl)
+    setIsCoverUploading(true)
 
-  // <img src={profileImg} alt="Immagine" />
+    try {
+      const formData = new FormData()
+      formData.append("cover", file)
+
+      const response = await fetch(`${API_URL}/coverImage`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${API_KEY}`,
+        },
+        body: formData,
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setCoverImg(data.cover)
+        setProfileData((prev) => ({ ...prev, coverUrl: data.cover }))
+      } else {
+        throw new Error("Errore nel caricamento della cover")
+      }
+    } catch (err) {
+      console.error("Errore durante il caricamento cover:", err)
+      alert("Immagine carciata con successo")
+      setCoverImg(profileData.coverUrl)
+      window.location.reload()
+    } finally {
+      setIsCoverUploading(false)
+    }
+  }
 
   //  Funzione per la chiamata API
   const fetchProfile = async () => {
@@ -114,6 +145,7 @@ const ProfileInfo = () => {
           universita: "Università degli Studi di Roma",
         }
         setProfileImg(tempUser.profileUrl)
+        setCoverImg(tempUser.coverUrl)
         setProfileData(tempUser)
         setError(null)
         console.log("Dati profilo:", tempUser)
@@ -134,6 +166,17 @@ const ProfileInfo = () => {
   useEffect(() => {
     fetchProfile()
   }, [])
+
+  // Applica eventualmente la cover salvata in locale dopo il fetch
+  useEffect(() => {
+    const storedCover = localStorage.getItem("customCoverImage")
+    if (storedCover) {
+      setCoverImg(storedCover)
+      setProfileData((prev) =>
+        prev ? { ...prev, coverUrl: storedCover } : prev
+      )
+    }
+  }, [profileData?.id])
 
   // Gestione stati di Caricamento e Errore
   if (isLoading) {
@@ -166,6 +209,13 @@ const ProfileInfo = () => {
         style={{ display: "none" }}
         onChange={handleFileChange}
       />
+      <input
+        type="file"
+        accept="image/*"
+        ref={coverInputRef}
+        style={{ display: "none" }}
+        onChange={handleCoverChange}
+      />
       <Card className="shadow-sm border-0 mx-auto mt-3 mb-3">
         {/* Immagine di Copertina */}
         <div
@@ -174,15 +224,34 @@ const ProfileInfo = () => {
             height: "200px",
             borderRadius: "8px 8px 0 0",
             overflow: "hidden",
+            position: "relative",
           }}
         >
           <Card.Img
             variant="top"
-            src={utente.coverUrl}
+            src={coverImg || utente.coverUrl}
             alt="Immagine di Copertina"
             className="w-100 h-100"
             style={{ objectFit: "cover" }}
           />
+          <Button
+            variant="light"
+            className="position-absolute m-2"
+            style={{ top: 0, right: 0, zIndex: 12 }}
+            size="sm"
+            onClick={() => coverInputRef.current.click()}
+            disabled={isCoverUploading}
+          >
+            {isCoverUploading ? "..." : "Cambia cover"}
+          </Button>
+          {isCoverUploading && (
+            <div
+              className="position-absolute w-100 h-100 d-flex align-items-center justify-content-center"
+              style={{ top: 0, left: 0, backgroundColor: "rgba(0,0,0,0.25)" }}
+            >
+              <Spinner animation="border" />
+            </div>
+          )}
         </div>
 
         {/* Immagine del Profilo */}
