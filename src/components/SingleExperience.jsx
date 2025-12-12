@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux"
 import { deleteExperienceAction } from "../redux/actions/actions"
-import { FaRegTrashAlt } from "react-icons/fa";
+import { FaRegTrashAlt } from "react-icons/fa"
 
 const SingleExperience = ({ experienceData, userId }) => {
   const dispatch = useDispatch()
@@ -24,16 +24,18 @@ const SingleExperience = ({ experienceData, userId }) => {
         <p className="mb-1">{experienceData.company}</p>
         <p className="mb-1 text-muted">
           {" "}
-          From {experienceData.startDate} To {experienceData.endDate}
+          From {experienceData.startDate.slice(0, 10)} To{" "}
+          {experienceData.endDate.slice(0, 10)}
         </p>
         <p className=" mb-0">{experienceData.description}</p>
       </div>
       <FaRegTrashAlt
-      onClick={() =>
-          dispatch(deleteExperienceAction(userId, experienceData._id))}
-              style={{ cursor: "pointer" }}
-              className="ms-auto"
-              size={20}
+        onClick={() =>
+          dispatch(deleteExperienceAction(userId, experienceData._id))
+        }
+        style={{ cursor: "pointer" }}
+        className="ms-auto"
+        size={20}
       />
     </div>
   )

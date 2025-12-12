@@ -64,6 +64,7 @@ const LeftSidebar = () => {
         setProfileImg(data.image)
         // Aggiorna anche i dati del profilo
         setProfileData((prev) => ({ ...prev, profileUrl: data.image }))
+        window.location.reload()
       } else {
         throw new Error("Errore nel caricamento dell'immagine")
       }
